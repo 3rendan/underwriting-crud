@@ -3,6 +3,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+git remote add origin https://github.com/3rendan/underwriting-crud.git
+
 
 In the project directory, you can run:
 
