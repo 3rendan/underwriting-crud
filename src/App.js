@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { ProgramsContextProvider } from './context/ProgramsContext'
+import Read from './crud/Read';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ProgramsContextProvider>
+      <div className="App">
+        <header>
+          <h1 className='text-center mb-5 mt-5'>the underwriter</h1>
+          <Read/>
+        </header>
+      </div>
+    </ProgramsContextProvider>
   );
 }
 
-export default App;
+export default App
