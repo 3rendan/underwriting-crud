@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
-import ProgramsContext from '../context/ProgramsContext'
+import ProgramsContext from '../../context/ProgramsContext'
 import Card from 'react-bootstrap/Card'
+import Container from 'react-bootstrap/Container'
 
 const Read = () => {
   const { programs, loadMorePrograms, hasMore } = useContext(ProgramsContext)
@@ -22,27 +23,23 @@ const Read = () => {
   }, [hasMore]) // Reattach listener when `hasMore` changes
 
   return (
-    <div>
-      <h2 className='text-center'>Programs</h2>
+    <Container>
+      <h2 className='text-center mb-3'>Programs</h2>
       <ul>
         {programs.map((program) => (
-          <Card key={program.IDNumber}>
+          <Card key={program.IDNumber} className='mb-3'>
             <Card.Header className='text-center'>
               {program.ProgramTitle ? program.ProgramTitle : program.Title}
             </Card.Header>
             <Card.Body>
               <ul>
                 <li>
-                  Broadcast Rights:{' '}
-                  {program.BroadcastRights ? program.BroadcastRights : 'who knows'}
+                  <strong>Broadcast Rights:{' '}</strong>
+                  {program.BroadcastRights ? program.BroadcastRights : 'rights are never given, only taken'}
                 </li>
                 <li>
                   Provided by:{' '}
                   {program.ProgramService ? program.ProgramService : 'who knows'}
-                </li>
-                <li>
-                  Program Summary:{' '}
-                  {program.ProgramSummary ? program.ProgramSummary : 'watch it and write your own'}
                 </li>
               </ul>
             </Card.Body>
@@ -50,7 +47,7 @@ const Read = () => {
         ))}
       </ul>
       {!hasMore && <p className='text-center'>No more programs to load.</p>}
-    </div>
+    </Container>
   )
 }
 
