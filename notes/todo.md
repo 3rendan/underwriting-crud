@@ -1,6 +1,8 @@
 # Todo
 
-1. AuthContext
-   1. pass bearer token to ProgramsContext so it can make a fetch
-      1. evaluate token to see if it's still valid, if not
-         1. make another auth request and then make a fetch
+1. put main info below titles
+   1. show program summary on program details page
+2. filters for: 
+   1. program service
+   2. status
+3. boxes with lists of programs that recently went to contract
