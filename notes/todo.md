@@ -6,3 +6,15 @@
    1. program service
    2. status
 3. boxes with lists of programs that recently went to contract
+
+## Needs
+
+1. Fetch all basic records
+   1. Only have:
+      1. title
+      2. program service
+      3. unid
+      4. contract dates
+      5. status
+      6. broadcast rights
+2. Query by UNID to go to program link

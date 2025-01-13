@@ -31,6 +31,7 @@ const Read = () => {
             <Card.Header className='text-center'>
               {program.ProgramTitle ? program.ProgramTitle : program.Title}
             </Card.Header>
+            {console.log(program)}
             <Card.Body>
               <ul>
                 <li>
@@ -40,6 +41,10 @@ const Read = () => {
                 <li>
                   Provided by:{' '}
                   {program.ProgramService ? program.ProgramService : 'who knows'}
+                </li>
+                <li>
+                  UNID:
+                  {program['@meta'].unid}
                 </li>
               </ul>
             </Card.Body>
