@@ -1,0 +1,50 @@
+/* General styles for the switch wrapper */
+.switch-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Style for the Yes/No text */
+.availability-text {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.text-yes {
+  color: green;
+}
+
+.text-no {
+  color: red;
+}
+
+/* Custom switch colors */
+.custom-switch .form-check-input {
+  width: 40px;
+  height: 20px;
+  background-color: red;
+  border-radius: 10px;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.custom-switch.switch-yes .form-check-input {
+  background-color: green;
+}
+
+.custom-switch .form-check-input::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.custom-switch.switch-yes .form-check-input::before {
+  transform: translateX(20px);
+}

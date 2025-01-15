@@ -1,0 +1,29 @@
+.filter-row {
+  display: flexbox;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: solid 1px black;
+  border-radius: $border-radius;
+  margin-bottom: 2rem;
+  label {
+    margin: 2rem;
+  }
+}
+
+.program-details-container {
+  display: flex;
+  img {
+    margin: 1rem;
+    width: 400px; /* Set a fixed width */
+    height: 225px;
+    object-fit: cover;
+  }
+}
+
+.accordions {
+  margin-top: 1rem;
+  width: 45%;
+  .accordion-header {
+    text-align: center;
+  }
+  
+}

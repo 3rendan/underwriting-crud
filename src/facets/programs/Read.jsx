@@ -1,58 +1,38 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import ProgramsContext from '../../context/ProgramsContext'
 import Card from 'react-bootstrap/Card'
-import Container from 'react-bootstrap/Container'
 
 const Read = () => {
-  const { programs, loadMorePrograms, hasMore } = useContext(ProgramsContext)
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 20
-    ) {
-      if (hasMore) {
-        loadMorePrograms()
-      }
-    }
-  }
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [hasMore]) // Reattach listener when `hasMore` changes
+  const { programs } = useContext(ProgramsContext)
 
   return (
-    <Container>
-      <h2 className='text-center mb-3'>Programs</h2>
+    <div>
       <ul>
-        {programs.map((program) => (
-          <Card key={program.IDNumber} className='mb-3'>
-            <Card.Header className='text-center'>
-              {program.ProgramTitle ? program.ProgramTitle : program.Title}
-            </Card.Header>
-            {console.log(program)}
-            <Card.Body>
-              <ul>
-                <li>
-                  <strong>Broadcast Rights:{' '}</strong>
-                  {program.BroadcastRights ? program.BroadcastRights : 'rights are never given, only taken'}
-                </li>
-                <li>
-                  Provided by:{' '}
-                  {program.ProgramService ? program.ProgramService : 'who knows'}
-                </li>
-                <li>
-                  UNID:
-                  {program['@meta'].unid}
-                </li>
-              </ul>
-            </Card.Body>
-          </Card>
+        { programs.map((program) => (
+          <Link
+            to={`/program/${ program['@meta'].unid }`}
+            key={ program['@meta'].unid}
+            style={{ textDecoration: 'none' }}
+          >
+            <Card className='mb-3'>
+              <Card.Header>
+                { program.ProgramTitle ? program.ProgramTitle : program.Title}
+              </Card.Header>
+              <Card.Body className='program-card-body'>
+                <p>{ program.ProgramStatus }</p>
+                <p>{ program.ContractStartDate }</p>
+                <p>{ program.ContractEndDate }</p>
+                <p>{ program?.BroadcastRights }</p>
+                <p>{ program?.ProgramService }</p>
+                <p>{ program?.NolaCode }</p>
+                <p>{ program?.ProgramLength }</p>
+              </Card.Body>
+            </Card>
+          </Link>
         ))}
       </ul>
-      {!hasMore && <p className='text-center'>No more programs to load.</p>}
-    </Container>
+    </div>
   )
 }
 

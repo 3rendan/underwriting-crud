@@ -1,20 +1,70 @@
-import React, { createContext, useState, useEffect, useContext } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 import axios from 'axios'
-import { useAuth } from './AuthContext'
 import { programsStatic } from '../assets/static/programData'
+import { useAuth } from './AuthContext'
 
 const ProgramsContext = createContext()
 
 export const ProgramsProvider = ({ children }) => {
   const [programs, setPrograms] = useState([])
+  const [filters, setFilters] = useState({
+    expiringSoon: false,
+    exchange: false,
+    syndication: false,
+  })
   const { token, isAuthenticated, getToken, validateToken } = useAuth()
 
   useEffect(() => {
     setPrograms(programsStatic)
-  }, []) // Re-fetch when offset or token changes
+  }, []) // Load static programs data initially
+
+  const getProgram = async (id) => {
+    try {
+      if (!isAuthenticated || !validateToken()) {
+        console.info('Token is invalid or expired, refreshing token')
+        await getToken()
+      }
+
+      if (isAuthenticated && token) {
+        const res = await axios.get(
+          `http://restapi.aptonline.org:8880/api/v1/document/${id}?dataSource=programsscope`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        return res.data
+      } else {
+        throw new Error('Failed to authenticate')
+      }
+    } catch (error) {
+      console.error(`Error fetching program data: ${error.message}`)
+      throw error
+    }
+  }
+
+  const applyFilters = () => {
+    const today = new Date()
+    return programs.filter((program) => {
+      if (filters.expiringSoon) {
+        const endDate = new Date(program.ContractEndDate)
+        if (isNaN(endDate) || (endDate - today) / (1000 * 60 * 60 * 24) >= 90) {
+          return false
+        }
+      }
+      if (filters.exchange && program.ProgramService !== 'Exchange') {
+        return false
+      }
+      if (filters.syndication && program.ProgramService !== 'Syndication') {
+        return false
+      }
+      return true
+    })
+  }
 
   return (
-    <ProgramsContext.Provider value={{ programs }}>
+    <ProgramsContext.Provider
+      value={{ programs: applyFilters(), filters, setFilters, getProgram }}
+    >
       {children}
     </ProgramsContext.Provider>
   )

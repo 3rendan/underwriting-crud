@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { createBrowserRouter } from 'react-router-dom' 
-import Read from '../facets/programs/Read'
+import Home from '../views/Home'
 import RootLayout from './RootLayout'
 import ErrorPage from './ErrorPage'
-import ProgramRead from '../facets/programs/ProgramRead'
+import ProgramDetails from '../facets/programs/ProgramDetails'
 
 const Router = createBrowserRouter([ 
   {
@@ -13,11 +13,11 @@ const Router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Read />,
+        element: <Home />,
       },
       {
-        path: '/read/program/id',
-        element: <ProgramRead />
+        path: '/program/:id',
+        element: <ProgramDetails />
       }  
     ]
   } 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
 import Footer from '../layout/footer/Footer'
 import Header from '../layout/header/Header'
 
@@ -12,7 +13,9 @@ const RootLayout = () => {
         <Header />
       </div>
       <main id='main-content' tabIndex='-1'>
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </main>
       <Footer />
     </div>

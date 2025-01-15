@@ -6,10 +6,6 @@ import Breadcrumbs from '../layout/navigation/Breadcrumbs'
 const Dashboard = () => {
   const { isAuthenticated, token } = useAuth()
 
-  useEffect(() => {
-    console.info(`Token: ${token}`)
-  }, [token])
-
   return (
     <>
     <div  className='text-center'>
