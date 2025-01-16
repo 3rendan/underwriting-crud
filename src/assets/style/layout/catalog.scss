@@ -9,21 +9,36 @@
   }
 }
 
-.program-details-container {
-  display: flex;
-  img {
-    margin: 1rem;
-    width: 400px; /* Set a fixed width */
-    height: 225px;
-    object-fit: cover;
-  }
+.tombstone {
+  margin: 1rem;
+  background-color: $lemon;
+  color: $blue;
+  border-radius: $border-radius;
+  padding: .5rem;
 }
 
-.accordions {
-  margin-top: 1rem;
-  width: 45%;
-  .accordion-header {
-    text-align: center;
-  }
-  
+/* Tab styles */
+.custom-tabs .nav-link {
+  background-color: $blue; /* Default background */
+  color: $lemon; /* Default text color */
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-tabs .nav-link.active {
+  background-color: $lemon; /* Active background */
+  color: $blue; /* Active text color */
+  border: 1px solid $blue; /* Add a border to active tabs for clarity */
+  border-bottom: none; /* Seamless integration with content */
+}
+
+.custom-tabs .nav-link:hover {
+  filter: brightness(1.2);
+}
+
+/* Container spacing */
+.program-details-container {
+  padding: 20px;
+  border-radius: 0 0 5px 5px;
+  background-color: #fff;
 }

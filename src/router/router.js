@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import Home from '../views/Home'
 import RootLayout from './RootLayout'
 import ErrorPage from './ErrorPage'
-import ProgramDetails from '../facets/programs/ProgramDetails'
+import ProgramPage from '../facets/programs/ProgramPage'
 
 const Router = createBrowserRouter([ 
   {
@@ -17,7 +17,7 @@ const Router = createBrowserRouter([
       },
       {
         path: '/program/:id',
-        element: <ProgramDetails />
+        element: <ProgramPage />
       }  
     ]
   } 

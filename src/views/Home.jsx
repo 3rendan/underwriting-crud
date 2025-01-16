@@ -1,5 +1,5 @@
 import React from 'react'
-import Read from '../facets/programs/Read'
+import ProgramsList from '../facets/programs/ProgramsList'
 import Container from 'react-bootstrap/Container'
 import FilterRow from '../catalog/FilterRow'
 
@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <FilterRow />
       <Container className='d-flex'>
-        <Read />
+        <ProgramsList />
       </Container>
     </>
   )

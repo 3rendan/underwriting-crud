@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import Col from 'react-bootstrap/Col'
-import Breadcrumbs from '../layout/navigation/Breadcrumbs'
 
 const Dashboard = () => {
   const { isAuthenticated, token } = useAuth()
@@ -18,7 +17,7 @@ const Dashboard = () => {
             right: '0',
             height: '2rem',
             width: '2rem',
-            backgroundColor: 'green',
+            backgroundColor: '#C5D86D',
           }}
         />
       ) : (
@@ -30,12 +29,11 @@ const Dashboard = () => {
             right: '0',
             height: '2rem',
             width: '2rem',
-            backgroundColor: 'red',
+            backgroundColor: '#E71D36',
           }}
         />
       )}
     </div>
-    <Breadcrumbs />
     </>
   )
 }

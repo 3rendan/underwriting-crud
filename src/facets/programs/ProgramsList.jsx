@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import ProgramsContext from '../../context/ProgramsContext'
 import Card from 'react-bootstrap/Card'
 
-const Read = () => {
+const ProgramsList = () => {
   const { programs } = useContext(ProgramsContext)
 
   return (
@@ -36,4 +36,4 @@ const Read = () => {
   )
 }
 
-export default Read
+export default ProgramsList

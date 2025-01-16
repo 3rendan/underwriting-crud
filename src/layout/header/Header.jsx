@@ -9,7 +9,7 @@ const Header = () => {
     <header>
       <Row className='align-items-center justify-content-center'>
         <Col xs={12} className='text-center'>
-          <h1 className='my-3'>the underwriter</h1>
+          <h1 className='my-3'>NoMi</h1>
         </Col>
         <Col
           xs={1}
@@ -24,10 +24,8 @@ const Header = () => {
           <Dashboard />
         </Col>
       </Row>
-      <Row className='mt-4'>
-        <Col md={{
-          span: 2, offset: 10
-        }}>
+      <Row>
+        <Col>
           <Breadcrumbs />
         </Col>
       </Row>

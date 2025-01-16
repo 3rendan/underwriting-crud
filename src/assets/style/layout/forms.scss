@@ -12,18 +12,18 @@
 }
 
 .text-yes {
-  color: green;
+  color: #C5D86D;
 }
 
 .text-no {
-  color: red;
+  color: #E71D36;
 }
 
 /* Custom switch colors */
 .custom-switch .form-check-input {
   width: 40px;
   height: 20px;
-  background-color: red;
+  background-color: #E71D36;
   border-radius: 10px;
   position: relative;
   transition: background-color 0.3s ease;
