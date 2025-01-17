@@ -2,9 +2,13 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import ProgramsContext from '../../context/ProgramsContext'
 import Card from 'react-bootstrap/Card'
+import {AuthContext} from '../../context/AuthContext'
 
 const ProgramsList = () => {
   const { programs } = useContext(ProgramsContext)
+  const { isAuthenticated } = useContext(AuthContext)
+
+  if(!isAuthenticated) return 'loading...'
 
   return (
     <div>
