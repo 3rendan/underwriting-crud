@@ -10,11 +10,13 @@
 }
 
 .tombstone {
-  margin: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: .5rem;
   background-color: $lemon;
   color: $blue;
   border-radius: $border-radius;
-  padding: .5rem;
+  padding: 2rem;
 }
 
 /* Tab styles */
@@ -41,4 +43,16 @@
   padding: 20px;
   border-radius: 0 0 5px 5px;
   background-color: #fff;
+  max-width: 1200px;
+  margin: 0 auto; /* Centers the content */
+}
+
+#program-details-tabs {
+  border-bottom: 2px solid #ccc; /* Adjust border as needed */
+}
+
+
+.custom-tabs {
+  max-width: 800px; /* Optional: Set a max width */
+  margin: 0 auto; /* Centers the tabs block */
 }

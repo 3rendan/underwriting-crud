@@ -9,9 +9,9 @@ import ContactInfo from '../accordions/ContactInfo'
 const ProgramInfo = ({program}) => {
   return (
     <div className='accordions'>
+      <Licensees program={program}/>     
       <BroadcastRights program={program}/>     
       <SixAvailability program={program}/>     
-      <Licensees program={program}/>     
       <MediaManagerAvailability program={program}/>  
       <ContactInfo program={program} />
       <Summary program={program} />   

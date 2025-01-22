@@ -20,14 +20,14 @@ const ProgramTombstone = ({program}) => {
 
   return (
     <>
-      <div className='tombstone d-flex'>
-        <h4 className='text-center'><strong>ID</strong> {program.IDNumber}</h4>
-        <p><strong>Last modified on</strong> {formatDateTime(program['@meta'].lastmodified)}</p>
-        <p><strong>Added file</strong> {formatDateTime(program['@meta'].addedtofile)}</p>
+      <div className='tombstone'>
         <p><strong>Author</strong> {program.Author}</p>
+        <p><strong>Last modified on</strong> {formatDateTime(program['@meta'].lastmodified)}</p>
         <p><strong>Updated by</strong> {program.UpdatedBy}</p>
-        <p><strong>Classification</strong> {program.Classification}</p>
+        <p><strong>Added file</strong> {formatDateTime(program['@meta'].addedtofile)}</p>
         { program.ProjectedReleaseDate && <p><strong>Projected Release Date</strong> {program.ProjectedReleaseDate}</p>}
+        <p><strong>Supplied by</strong> {program.SupplierCompany}</p>
+        <p><strong>Classification</strong> {program.Classification}</p>
       </div>
     </>
   )

@@ -32,22 +32,42 @@ const ProgramDetails = () => {
     <>
       <h2 className='text-center mb-3'>{program.Title}</h2>
       <ProgramTombstone program={program} />
-      <Tabs
-        defaultActiveKey='programInfo'
-        id='program-details-tabs'
-        className='mb-3 custom-tabs'
-      >
-        <Tab eventKey='programInfo' title='Program Info'>
-          <Container className='program-details-container'>
-            <ProgramInfo program={program} />
-          </Container>
-        </Tab>
-        <Tab eventKey='underwriting' title='Underwriting'>
-          <Container className='program-details-container'>
-            <Underwriting program={program} />
-          </Container>
-        </Tab>
-      </Tabs>
+      <Container>
+        {/* Tabs with full width */}
+        <Tabs
+          defaultActiveKey='programInfo'
+          id='program-details-tabs'
+          className='mb-3 border-bottom'
+          fill
+        >
+          <Tab eventKey='programInfo' title='Program Info'>
+            {/* Tab Content Directly Underneath */}
+            <Container className='program-details-container py-3'>
+              <ProgramInfo program={program} />
+            </Container>
+          </Tab>
+          <Tab eventKey='underwriting' title='Underwriting'>
+            <Container className='program-details-container py-3'>
+              <Underwriting program={program} />
+            </Container>
+          </Tab>
+          <Tab eventKey='metadata' title='Metadata'>
+            <Container className='program-details-container py-3'>
+              <Underwriting program={program} />
+            </Container>
+          </Tab>
+          <Tab eventKey='accounting' title='Pricing'>
+            <Container className='program-details-container py-3'>
+              <Underwriting program={program} />
+            </Container>
+          </Tab>
+          <Tab eventKey='distribution' title='Distribution'>
+            <Container className='program-details-container py-3'>
+              <Underwriting program={program} />
+            </Container>
+          </Tab>
+        </Tabs>
+      </Container>
     </>
   )
 }
