@@ -51,7 +51,7 @@ const ProgramDetails = () => {
               <Underwriting program={program} />
             </Container>
           </Tab>
-          <Tab eventKey='metadata' title='Metadata'>
+          <Tab eventKey='metadata' title='Inventory'>
             <Container className='program-details-container py-3'>
               <Underwriting program={program} />
             </Container>
