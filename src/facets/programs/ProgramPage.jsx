@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import ProgramsContext from '../../context/ProgramsContext'
+import UnderwritingContext from '../../context/UnderwritingContext'
 import { useParams } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Tabs from 'react-bootstrap/Tabs'
@@ -10,8 +11,10 @@ import ProgramInfo from './tabs/ProgramInfo'
 
 const ProgramDetails = () => {
   const { getProgram } = useContext(ProgramsContext)
+  const { getUnderwriters } = useContext(UnderwritingContext)
   const { id } = useParams()
   const [program, setProgram] = useState(null)
+  const [underwriters, setUnderwriters] = useState(null)
 
   useEffect(() => {
     const fetchProgram = async () => {
@@ -26,7 +29,22 @@ const ProgramDetails = () => {
     fetchProgram()
   }, [id, getProgram])
 
-  if (!program) return <p>Loading...</p>
+  useEffect(() => {
+    if (program && program.IDNumber) {
+      const fetchUnderwriters = async () => {
+        try {
+          const data = await getUnderwriters(program.IDNumber)
+          setUnderwriters(data)
+        } catch (error) {
+          console.error('Failed to fetch underwriters:', error)
+        }
+      }
+
+      fetchUnderwriters()
+    }
+  }, [program, getUnderwriters])
+
+  if (!program || !underwriters) return <p>Loading...</p>
 
   return (
     <>
@@ -40,6 +58,7 @@ const ProgramDetails = () => {
           className='mb-3 border-bottom'
           fill
         >
+          {console.log(underwriters)}
           <Tab eventKey='programInfo' title='Program Info'>
             {/* Tab Content Directly Underneath */}
             <Container className='program-details-container py-3'>
@@ -48,7 +67,7 @@ const ProgramDetails = () => {
           </Tab>
           <Tab eventKey='underwriting' title='Underwriting'>
             <Container className='program-details-container py-3'>
-              <Underwriting program={program} />
+              <Underwriting underwriters={underwriters} />
             </Container>
           </Tab>
           <Tab eventKey='metadata' title='Inventory'>
@@ -58,7 +77,7 @@ const ProgramDetails = () => {
           </Tab>
           <Tab eventKey='accounting' title='Pricing'>
             <Container className='program-details-container py-3'>
-              <Underwriting program={program} />
+              <Underwriting  />
             </Container>
           </Tab>
           <Tab eventKey='distribution' title='Distribution'>

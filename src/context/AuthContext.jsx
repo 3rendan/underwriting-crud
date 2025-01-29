@@ -10,11 +10,9 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [token, setToken] = useState(null)
 
-  const authEndpoint = process.env.REACT_APP_AUTH_ENDPOINT
-
   const getToken = async (params) => {
     try {
-      const response = await axios.post('http://restapi.aptonline.org:8880/api/v1/auth', {
+      const response = await axios.post(`${process.env.REACT_APP_HOST_ENDPOINT}/auth`, {
         username: 'Administrator',
         password: 'OffDomino#2025',
       })

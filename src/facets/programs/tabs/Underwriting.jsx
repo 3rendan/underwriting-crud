@@ -1,20 +1,18 @@
 import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container'
 
-const Underwriting = ({ program }) => {
+const Underwriting = ({ underwriters }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <Container>
-      <p>
-        <strong>Underwriters:</strong> {program.NationalUnderwriter}
-      </p>
-      <p>
-        <strong>Local Underwriting:</strong> {program.ProgramStatus}
-      </p>
-      <p>
-        <strong>Restrictions:</strong> {program.LocalUnderwritingRestrictions}
-      </p>
+      this is underwriting
+      { underwriters === undefined ? 
+        `<h1>This program presently has no underwriters</h1>` :
+        underwriters.map((underwriter) => (
+          <p>{underwriter.Underwriter}</p>
+        )
+      )}
     </Container>
   )
 }
