@@ -24,10 +24,11 @@ export const ProgramsProvider = ({ children }) => {
         console.info('Token is invalid or expired, refreshing token')
         await getToken()
       }
+      const endpoint = process.env.REACT_APP_QUERY_BY_UNID_ENDPOINT
 
       if (isAuthenticated && token) {
         const res = await axios.get(
-          `http://restapi.aptonline.org:8880/api/v1/document/${id}?dataSource=programsscope`,
+          endpoint.replace('{{SCOPE}}', 'programsscope').replace('{{UNID}}', id),
           {
             headers: { Authorization: `Bearer ${token}` },
           }

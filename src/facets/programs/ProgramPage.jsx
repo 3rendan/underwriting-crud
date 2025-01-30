@@ -9,9 +9,9 @@ import ProgramTombstone from './ProgramTombstone'
 import Underwriting from './tabs/Underwriting'
 import ProgramInfo from './tabs/ProgramInfo'
 
-const ProgramDetails = () => {
+const ProgramPage = () => {
   const { getProgram } = useContext(ProgramsContext)
-  const { getUnderwriters } = useContext(UnderwritingContext)
+  const { getUnderwriters, createUnderwriter } = useContext(UnderwritingContext)
   const { id } = useParams()
   const [program, setProgram] = useState(null)
   const [underwriters, setUnderwriters] = useState(null)
@@ -44,6 +44,28 @@ const ProgramDetails = () => {
     }
   }, [program, getUnderwriters])
 
+  const handleAddUnderwriter = async (formData) => {
+    try {
+      // Define the parameters for the new underwriter using form data
+      const params = {
+        Title: program.Title, // Use the program's Title
+        Underwriter: formData.Underwriter, // Use the value from the form
+        Amount: formData.Amount, // Use the value from the form
+        Notes: formData.Notes, // Use the value from the form
+        UWType: program.ProgramService, // Hardcoded as per requirements
+        Form: 'Underwriting', // Hardcoded as per requirements
+      }
+
+      // Call the createUnderwriter function from context
+      const newUnderwriter = await createUnderwriter(params)
+
+      // Update the underwriters state with the new underwriter
+      setUnderwriters([...underwriters, newUnderwriter])
+    } catch (error) {
+      console.error('Failed to add underwriter:', error)
+    }
+  }
+
   if (!program || !underwriters) return <p>Loading...</p>
 
   return (
@@ -58,7 +80,6 @@ const ProgramDetails = () => {
           className='mb-3 border-bottom'
           fill
         >
-          {console.log(underwriters)}
           <Tab eventKey='programInfo' title='Program Info'>
             {/* Tab Content Directly Underneath */}
             <Container className='program-details-container py-3'>
@@ -67,22 +88,10 @@ const ProgramDetails = () => {
           </Tab>
           <Tab eventKey='underwriting' title='Underwriting'>
             <Container className='program-details-container py-3'>
-              <Underwriting underwriters={underwriters} />
-            </Container>
-          </Tab>
-          <Tab eventKey='metadata' title='Inventory'>
-            <Container className='program-details-container py-3'>
-              <Underwriting program={program} />
-            </Container>
-          </Tab>
-          <Tab eventKey='accounting' title='Pricing'>
-            <Container className='program-details-container py-3'>
-              <Underwriting  />
-            </Container>
-          </Tab>
-          <Tab eventKey='distribution' title='Distribution'>
-            <Container className='program-details-container py-3'>
-              <Underwriting program={program} />
+              <Underwriting
+                underwriters={underwriters}
+                addUnderwriter={handleAddUnderwriter} // Pass the function down
+              />
             </Container>
           </Tab>
         </Tabs>
@@ -91,4 +100,4 @@ const ProgramDetails = () => {
   )
 }
 
-export default ProgramDetails
+export default ProgramPage
