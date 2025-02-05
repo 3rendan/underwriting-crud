@@ -51,7 +51,7 @@ export const UnderwritingProvider = ({ children }) => {
         const requestBody = {
           Title: params.Title,
           Underwriter: params.Underwriter,
-          UWType: params.UWType, // Always set to 'APT'
+          ProgramService: params.UWType,
           Amount: params.Amount,
           Notes: params.Notes,
           Form: 'Underwriting', // Always set to 'Underwriting'
@@ -65,9 +65,14 @@ export const UnderwritingProvider = ({ children }) => {
         const res = await axios.post(endpoint, requestBody, {
           headers: { Authorization: `Bearer ${token}` },
         })
-
-        // Return the response data
-        return res.data
+        if(res.data['@meta'].unid) {
+          const unidObj = {'agentName': 'UnderwritingPostSave', 'unids': [res.data['@meta'].unid] }
+          const endpoint = 'http://restapi.aptonline.org:8880/api/v1/run/agentWithContext?dataSource=underwritingscope'
+          const postSave = await axios.post(endpoint, unidObj, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+          console.log('new object created')
+        }
       } else {
         throw new Error('Failed to authenticate')
       }

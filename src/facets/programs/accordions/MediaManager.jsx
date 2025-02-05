@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
 
-const MediaManagerAvailability = ({ program }) => {
+const MediaManager
+ = ({ program }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -12,7 +13,7 @@ const MediaManagerAvailability = ({ program }) => {
           onClick={() => setIsOpen(!isOpen)}
           style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
         >
-          <span style={{ marginLeft: '10px' }}>Media Manager Availability</span>
+          <span style={{ marginLeft: '10px' }}>Media Manager</span>
         </Accordion.Header>
       <Accordion.Collapse eventKey="0">
         <Accordion.Body>
@@ -38,4 +39,5 @@ const MediaManagerAvailability = ({ program }) => {
   )
 }
 
-export default MediaManagerAvailability
+export default MediaManager
+

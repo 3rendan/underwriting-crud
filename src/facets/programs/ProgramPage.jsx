@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import ProgramTombstone from './ProgramTombstone'
-import Underwriting from './tabs/Underwriting'
+import Underwriting from './underwriting/Underwriting'
 import ProgramInfo from './tabs/ProgramInfo'
 
 const ProgramPage = () => {
@@ -48,12 +48,12 @@ const ProgramPage = () => {
     try {
       // Define the parameters for the new underwriter using form data
       const params = {
-        Title: program.Title, // Use the program's Title
+        Title: program.Title, 
         Underwriter: formData.Underwriter, // Use the value from the form
         Amount: formData.Amount, // Use the value from the form
         Notes: formData.Notes, // Use the value from the form
-        UWType: program.ProgramService, // Hardcoded as per requirements
-        Form: 'Underwriting', // Hardcoded as per requirements
+        ProgramService: program.ProgramService, 
+        Form: 'Underwriting', 
       }
 
       // Call the createUnderwriter function from context
@@ -72,6 +72,7 @@ const ProgramPage = () => {
     <>
       <h2 className='text-center mb-3'>{program.Title}</h2>
       <ProgramTombstone program={program} />
+      {console.log(program)}
       <Container>
         {/* Tabs with full width */}
         <Tabs

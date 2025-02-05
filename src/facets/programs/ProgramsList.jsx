@@ -15,13 +15,13 @@ const ProgramsList = () => {
       <ul>
         { programs.map((program) => (
           <Link
-            to={`/program/${ program['@meta'].unid }`}
-            key={ program['@meta'].unid}
+            to={`/program/${ program['@unid'] }`}
+            key={ program['@unid']}
             style={{ textDecoration: 'none' }}
           >
             <Card className='mb-3'>
               <Card.Header>
-                { program.ProgramTitle ? program.ProgramTitle : program.Title}
+                { program.ProgramTitle ? program.ProgramTitle : program.Title}{ program.season && ` Season ${program.season}`}
               </Card.Header>
               <Card.Body className='program-card-body'>
                 <p>{ program.ProgramStatus }</p>
