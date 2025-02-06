@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 import ProgramsContext from '../context/ProgramsContext'
+import Container from 'react-bootstrap/Container'
+import Col from 'react-bootstrap/Col'
 
 const FilterRow = () => {
   const { filters, setFilters } = useContext(ProgramsContext)
@@ -12,9 +14,9 @@ const FilterRow = () => {
   }
 
   return (
-    <div className='filter-row'>
-      <h4 className='text-center'>Filter</h4>
-      <div className='filters'>
+    <Container>
+      <h2 className='text-center mt-3 mb-3'>Filters</h2>
+      <Col xs={{ span: 9, offset: 2}} className=' mt-3 filters'>
         <label>
           <input
             type='checkbox'
@@ -39,8 +41,9 @@ const FilterRow = () => {
           />
           Syndication
         </label>
-      </div>
-    </div>
+      </Col>
+      <h2 class='huh'>What info on programs do you want to filter on?</h2>
+    </Container>
   )
 }
 

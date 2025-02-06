@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState} from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { formattedNumber } from '../../../utilities/helpers'
+import NumberInput from '../../../forms/inputs/NumberInput'
 
 const Underwriter = ({ underwriter, onAmountChange }) => {
-  const handleAmountChange = (event) => {
+  const [ formData, setFormData ] = useState({
+    amount: underwriter.Amount || 0
+  })
+  const handleChange = (event) => {
     const newAmount = event.target.value
     onAmountChange(underwriter.index, newAmount)
   }
@@ -16,14 +20,16 @@ const Underwriter = ({ underwriter, onAmountChange }) => {
     <Card key={underwriter.index} className='underwriter-card mb-3'>
       <Card.Title>{underwriter.Underwriter}</Card.Title>
       <Card.Body>
-        <Form.Group controlId={`amount-${underwriter.index}`}>
-          <Form.Label><strong>Amount:</strong></Form.Label>
-          <Form.Control
-            type="number"
-            value={underwriter.Amount}
-            onChange={handleAmountChange}
-          />
-        </Form.Group>
+      <NumberInput
+        label='Amount'
+        name='amount'
+        value={`$${formData.amount}`}
+        onChange={handleChange}
+        placeholder=''
+        className='single-row-form'
+        // error={errors.amount}
+        // isRequired
+      />
       </Card.Body>
     </Card>
   )

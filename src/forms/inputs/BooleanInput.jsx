@@ -9,6 +9,7 @@ const BooleanInput = ({ label, id, checked, onChange }) => {
         label={label}
         checked={checked}
         onChange={onChange}
+        className='text-nowrap'
       />
     </Form.Group>
   )

@@ -1,4 +1,12 @@
-/* General styles for the switch wrapper */
+.filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: .5rem;
+  input {
+    margin: 0 1rem;
+  }
+}
+
 .switch-wrapper {
   display: flex;
   align-items: center;
@@ -47,4 +55,42 @@
 
 .custom-switch.switch-yes .form-check-input::before {
   transform: translateX(20px);
+}
+
+.pod-body, .sc-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem;
+}
+
+.pcd-dates, .pcd-delivery-comments, .pcd-info-contract {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: solid $lemon 2px;
+  label {
+    width: 15vw;
+  }
+
+  .form-check {
+    width: 45%;
+    margin: auto;
+    padding: .5rem 0;
+  }
+  input {
+    padding: .15rem;
+    border-radius: $border-radius;
+  }
+  .row {
+    width: 100vw;
+  }
+  .single-row-form {
+    display: block;
+    input {
+      width: 85%;
+      margin: auto;
+    }
+  }
+  
 }

@@ -4,6 +4,7 @@ import TextInput from '../../../forms/inputs/TextInput'
 import BooleanInput from '../../../forms/inputs/BooleanInput'
 import SelectInput from '../../../forms/inputs/SelectInput'
 import DateInput from '../../../forms/inputs/DateInput'
+import { Row } from 'react-bootstrap'
 
 const ProgramOfferData = ({ program }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -68,18 +69,20 @@ const ProgramOfferData = ({ program }) => {
   ]
 
   return (
-    <Accordion className='program-details-accordion'>
+    <Accordion className='pod'>
       <Accordion.Item eventKey='0'>
         <Accordion.Header
           eventKey='0'
           onClick={() => setIsOpen(!isOpen)}
           style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
         >
-          <h4 style={{ marginLeft: '10px' }}>Program Offer Data</h4>
+          <h5 style={{ marginLeft: '10px' }}>Program Offer Data</h5>
         </Accordion.Header>
       <Accordion.Collapse eventKey='0'>
-        <Accordion.Body>
-          <h6>Program Summary:</h6>
+        <Accordion.Body className='pod-body'>
+          <Row>
+            <h6>Program Summary:</h6>
+          </Row>
           <TextInput
             label='Program Service'
             id='programService'
@@ -116,7 +119,7 @@ const ProgramOfferData = ({ program }) => {
             value={formData.nationalBasePrice}
             onChange={handleChange}
           />
-          <p>what is closed captioning fees and how is it calculated?</p>
+          <h4 className='huh'>what is closed captioning fees and how is it calculated?</h4>
           <SelectInput
             label='Screening status'
             id='screeningStatus'
@@ -168,7 +171,7 @@ const ProgramOfferData = ({ program }) => {
             value={formData.screeningTape}
             onChange={handleChange}
           />
-          <p>What is season/ year? is it from a list?</p>
+          <h4 className='huh'> What is season/ year? is it from a list?</h4>
           <BooleanInput
             label='Presentation'
             id='presentation'
@@ -247,9 +250,9 @@ const ProgramOfferData = ({ program }) => {
             value={formData.contentAdvisory}
             onChange={handleChange}
           />
-          <p>I don't know what kind of input is required for min/max filter length</p>
-          <p>what is broadcast history?</p>
-          <p>What are rag details?</p>
+          <h4 className='huh'>I don't know what kind of input is required for min/max filter length</h4>
+          <h4 className='huh'> what is broadcast history?</h4>
+          <h4 classNMame='huh'> What are rag details?</h4>
           <BooleanInput
             label='Station can edit flags'
             id='stationEditFlags'

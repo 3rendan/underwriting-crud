@@ -1,0 +1,18 @@
+/* Custom CSS for the accordion */
+.internal-accordion .internal-accordion-item .accordion-header {
+  background-color: #007bff; /* Change to your desired color */
+  color: white; /* Change text color if needed */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  margin-bottom: 5px; /* Optional: Add spacing between items */
+}
+
+.internal-accordion .internal-accordion-item .accordion-button {
+  background-color: transparent; /* Make the button transparent */
+  color: white; /* Change text color if needed */
+  box-shadow: none; /* Remove Bootstrap's default box shadow */
+}
+
+.internal-accordion .internal-accordion-item .accordion-button:not(.collapsed) {
+  background-color: #0056b3; /* Change color when expanded */
+  color: white; /* Change text color when expanded */
+}

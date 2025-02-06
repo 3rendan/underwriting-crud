@@ -85,61 +85,64 @@ const SupplierContacts = ({ program }) => {
   }
 
   return (
-    <Accordion className='program-details-accordion'>
+    <Accordion className='sc'>
       <Accordion.Item eventKey='0'>
         <Accordion.Header
           eventKey='0'
           onClick={() => setIsOpen(!isOpen)}
           style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
         >
-          <h4 style={{ marginLeft: '10px' }}>Contacts</h4>
+          <h5 style={{ marginLeft: '10px' }}>Contacts</h5>
         </Accordion.Header>
         <Accordion.Collapse eventKey='0'>
           <Accordion.Body>
-          <Form.Group className='mb-2' controlId='producedPresentedBy'>
-              <Form.Label>Produced/Presented By</Form.Label>
+            <Form.Group className='mb-2' controlId='producedPresentedBy' style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+              <Form.Label style={{ flex: '0 0 150px', marginRight: '10px' }}>Produced/ Presented By</Form.Label>
               <Form.Control
                 type='text'
                 value={formData.producedPresentedBy}
                 onChange={handleChange}
+                style={{ flex: '1', margin: '0 auto' }}
               />
             </Form.Group>
-            <ContactFormInput
-              label='Supplier Contact'
-              id='supplierContact'
-              value={formData.supplierContact}
-              onChange={(updatedContact) => handleContactChange('supplierContact', updatedContact)}
-            />
-            <ContactFormInput
-              label='Main Contact'
-              id='mainContact'
-              value={formData.mainContact}
-              onChange={(updatedContact) => handleContactChange('mainContact', updatedContact)}
-            />
-            <ContactFormInput
-              label='Communications Contact'
-              id='communicationsContact'
-              value={formData.communicationsContact}
-              onChange={(updatedContact) => handleContactChange('communicationsContact', updatedContact)}
-            />
-            <ContactFormInput
-              label='Operations Address'
-              id='operationsContact'
-              value={formData.operationsContact}
-              onChange={(updatedContact) => handleContactChange('operationsContact', updatedContact)}
-            />
-            <ContactFormInput
-              label='Station Relations Contact'
-              id='stationRelationsContact'
-              value={formData.stationRelationsContact}
-              onChange={(updatedContact) => handleContactChange('stationRelationsContact', updatedContact)}
-            />
-            <ContactFormInput
-              label='Media Contact'
-              id='mediaContact'
-              value={formData.mediaContact}
-              onChange={(updatedContact) => handleContactChange('mediaContact', updatedContact)}
-            />
+            <div className='sc-body'>
+              <ContactFormInput
+                label='Supplier Contact'
+                id='supplierContact'
+                value={formData.supplierContact}
+                onChange={(updatedContact) => handleContactChange('supplierContact', updatedContact)}
+              />
+              <ContactFormInput
+                label='Main Contact'
+                id='mainContact'
+                value={formData.mainContact}
+                onChange={(updatedContact) => handleContactChange('mainContact', updatedContact)}
+              />
+              <ContactFormInput
+                label='Communications Contact'
+                id='communicationsContact'
+                value={formData.communicationsContact}
+                onChange={(updatedContact) => handleContactChange('communicationsContact', updatedContact)}
+              />
+              <ContactFormInput
+                label='Operations Address'
+                id='operationsContact'
+                value={formData.operationsContact}
+                onChange={(updatedContact) => handleContactChange('operationsContact', updatedContact)}
+              />
+              <ContactFormInput
+                label='Station Relations Contact'
+                id='stationRelationsContact'
+                value={formData.stationRelationsContact}
+                onChange={(updatedContact) => handleContactChange('stationRelationsContact', updatedContact)}
+              />
+              <ContactFormInput
+                label='Media Contact'
+                id='mediaContact'
+                value={formData.mediaContact}
+                onChange={(updatedContact) => handleContactChange('mediaContact', updatedContact)}
+              />
+            </div>
           </Accordion.Body>
         </Accordion.Collapse>
       </Accordion.Item>

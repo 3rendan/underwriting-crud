@@ -18,7 +18,7 @@ const ContactFormInput = ({ label, id, value, onChange }) => {
   }
 
   return (
-    <Accordion className='mb-2' activeKey={expanded ? '0' : null}>
+    <Accordion className='mb-2 internal-accordion' activeKey={expanded ? '0' : null}>
       <Card>
         <Card.Header>
           <div
