@@ -8,10 +8,11 @@ const ProgramsList = () => {
   const { programs } = useContext(ProgramsContext)
   const { isAuthenticated } = useContext(AuthContext)
 
-  if(!isAuthenticated) return 'loading...'
+
 
   return (
     <div>
+      {!isAuthenticated ? 'loading...'  : (
       <ul>
         { programs.map((program) => (
           <Link
@@ -36,6 +37,7 @@ const ProgramsList = () => {
           </Link>
         ))}
       </ul>
+      )}
     </div>
   )
 }
