@@ -9,6 +9,7 @@ const ProgramsList = () => {
   const { isAuthenticated } = useContext(AuthContext)
 
 
+  if(!isAuthenticated) return 'loading...'
 
   return (
     <div>
