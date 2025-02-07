@@ -12,7 +12,6 @@ const ProgramsList = () => {
 
   return (
     <div>
-      {!isAuthenticated ? 'loading...'  : (
       <ul>
         { programs.map((program) => (
           <Link
@@ -37,7 +36,6 @@ const ProgramsList = () => {
           </Link>
         ))}
       </ul>
-      )}
     </div>
   )
 }
