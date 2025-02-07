@@ -8,11 +8,10 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { formattedNumber } from '../../../utilities/helpers'
 
-const Underwriting = ({ underwriters, addUnderwriter }) => {
+const Underwriting = ({ underwriters, addUnderwriter  }) => {
   const [showForm, setShowForm] = useState(false) // State to control form visibility
   const [underwriter, setUnderwriter] = useState('')
   const [amount, setAmount] = useState(0)
-  const [ id, setId ] = useState()
   const [notes, setNotes] = useState('')
 
   const handleAmountChange = (index, newAmount) => {
@@ -25,7 +24,7 @@ const Underwriting = ({ underwriters, addUnderwriter }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     // Call the addUnderwriter function with the form data
-    addUnderwriter({ Underwriter: underwriter, Amount: amount, Notes: notes, id: id })
+    addUnderwriter({ Underwriter: underwriter, Amount: amount, Notes: notes })
     setUnderwriter('')
     setAmount(0)
     setNotes('')
@@ -33,22 +32,9 @@ const Underwriting = ({ underwriters, addUnderwriter }) => {
   }
   if(!underwriters) return 'loading...'
   return (
-    <Container>
-      <div className='underwriting-container'> 
-        {underwriters.length === 0 ? (
-          <h4 className='text-center'>This program presently has no underwriters</h4>
-        ) : (
-          underwriters.map((underwriter) => (
-            <Underwriter 
-            underwriter={underwriter}
-            onAmountChange={handleAmountChange} 
-          />
-          ))
-        )}
-      </div>
-
+    <Container className='underwriting-container'>
       {/* Centered Button in a Row */}
-      <Row className='justify-content-center mt-3'>
+      <Row className='justify-content-center mb-3'>
         <Col xs='auto'>
           <Button
             variant='success'
@@ -96,6 +82,24 @@ const Underwriting = ({ underwriters, addUnderwriter }) => {
           </div>
         </Form>
       )}
+      <Row class='underwriter-table-headings'>
+        <Col><h6>Underwriter</h6></Col>
+        <Col><h6>Amount</h6></Col>
+        <Col><h6>Epidodes</h6></Col>      
+      </Row>
+      <br/>
+      <div> 
+        {underwriters.length === 0 ? (
+          <h4 className='text-center'>This program presently has no underwriters</h4>
+        ) : (
+          underwriters.map((underwriter) => (
+            <Underwriter 
+            underwriter={underwriter}
+            onAmountChange={handleAmountChange} 
+          />
+          ))
+        )}
+      </div>
     </Container>
   )
 }

@@ -1,9 +1,43 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
+import SimpleContactFormInput from '../../../forms/inputs/SimpleContactFormInput'
+import SocialContactFormInput from '../../../forms/inputs/SocialContactFormInput'
+import TextAreaInput from '../../../forms/inputs/TextAreaInput'
+import TextInput from '../../../forms/inputs/TextInput'
 
-const Communications
- = ({ program }) => {
+const Communications = ({ program }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [ formData, setFormData ] = useState({
+    promoMaterials: '',
+    merchandiseInfoLink: '',
+    viewerInquiries: {
+      company: '',
+      email: '',
+      phoneNumber: '',
+    },
+    socialContact: {
+      socialName: '',
+      twitter: '',
+      instagram: '',
+      pinterest: ''
+    },
+    contractConfirmationDescription: ''
+  })
+
+  const handleContactChange = (id, updatedContact) => {
+    setFormData({
+      ...formData,
+      [id]: updatedContact, // Dynamically update the contact object based on the id
+    })
+  }
+
+  const handleChange = (e) => {
+    const { id, value } = e.target
+    setFormData({
+      ...formData,
+      [id]: value,
+    })
+  }
 
   return (
     <Accordion className='program-details-accordion'>
@@ -16,22 +50,40 @@ const Communications
           <span style={{ marginLeft: '10px' }}>Communications</span>
         </Accordion.Header>
       <Accordion.Collapse eventKey="0">
-        <Accordion.Body>
-        <strong>Availability</strong>
-          <p>
-             {program.MMGeneralStreamingGeo}
-          </p>
-          <strong>Short Description</strong>
-          <p>
-             {program.MMShortDesc}
-          </p>
-          <strong>Long Description</strong>
-          <p>
-            {program.MMLongDesc}
-          </p>
-          <p>
-            <strong>Passport availability:</strong> {program.MMPassportStreamingGeo}
-          </p>
+        <Accordion.Body className='pc-body'>
+          <TextAreaInput
+            label='Promotional materials'
+            name='promoMaterials'
+            value={formData.promoMaterials}
+            onChange={handleChange}
+            placeholder='Available promotional materials'
+          />
+          <TextInput
+            label='Doclink to merchandise information'
+            id='merchandiseInfoLink'
+            value={formData.merchandiseInfoLink}
+            onChange={handleChange}
+          />
+          <br/>
+          <SimpleContactFormInput
+            label='Viewer inquiries'
+            id='viewerInquiries'
+            value={formData.viewerInquiries}
+            onChange={(updatedContact) => handleContactChange('viewerInquiries', updatedContact)}
+          />
+          <SocialContactFormInput
+            label='Social media contact information'
+            id='viewerInquiries'
+            value={formData.viewerInquiries}
+            onChange={(updatedContact) => handleContactChange('viewerInquiries', updatedContact)}
+          />
+          <TextAreaInput
+            label='Contract confirmation description'
+            name='contractConfirmationDescription'
+            value={formData.contractConfirmationDescription}
+            onChange={handleChange}
+            placeholder='Describe the contract confirmation'
+          />
         </Accordion.Body>
       </Accordion.Collapse>
       </Accordion.Item>

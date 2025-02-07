@@ -63,7 +63,9 @@
   gap: .5rem;
 }
 
-.pcd-dates, .pcd-delivery-comments, .pcd-info-contract {
+.pcd-dates, .pcd-delivery-comments, .pcd-pricing-info-toc, 
+.pcd-current-pricing , .pcd-special-conditions, .pcd-miscellaneous, .pc-socials,
+.pc-simple-contact {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
@@ -72,7 +74,6 @@
   label {
     width: 15vw;
   }
-
   .form-check {
     width: 45%;
     margin: auto;
@@ -85,12 +86,29 @@
   .row {
     width: 100vw;
   }
-  .single-row-form {
-    display: block;
-    input {
-      width: 85%;
-      margin: auto;
-    }
-  }
-  
 }
+
+.pc-socials, .pc-simple-contact {
+  margin: 0 1rem;
+}
+
+.pcd-delivery-comments label, .pcd-pricing-info-toc label, .pcd-current-pricing label {
+  width: 100%; /* Ensure labels take full width */
+}
+
+.pcd-current-pricing input {
+  width: 100%; /* Ensure inputs take full width */
+  padding: 0.15rem;
+  border-radius: 4px; /* Ensure $border-radius is defined or replace with a valid value */
+}
+
+.pcd-pricing-info-toc .row, .pcd-current-pricing .row {
+  width: 100%; /* Ensure rows take full width */
+}
+
+.pcd-pricing-info-toc .single-row-form input, .pcd-current-pricing .single-row-form input {
+  width: 85%; /* Adjust input width within single-row-form */
+  margin: auto;
+}
+
+

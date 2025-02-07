@@ -1,4 +1,5 @@
 .underwriting-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  .col {
+    margin: 0 .5rem;
+  }
 }

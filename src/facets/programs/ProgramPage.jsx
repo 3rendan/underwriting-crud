@@ -54,6 +54,7 @@ const ProgramPage = () => {
         Notes: formData.Notes, // Use the value from the form
         ProgramService: program.ProgramService, 
         Form: 'Underwriting', 
+        IDNumber: program.IDNumber
       }
 
       // Call the createUnderwriter function from context
@@ -92,6 +93,7 @@ const ProgramPage = () => {
               <Underwriting
                 underwriters={underwriters}
                 addUnderwriter={handleAddUnderwriter} // Pass the function down
+                id={program.IDNumber}
               />
             </Container>
           </Tab>

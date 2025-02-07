@@ -1,3 +1,4 @@
+
 import React, { createContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { useAuth } from './AuthContext'
@@ -54,7 +55,8 @@ export const UnderwritingProvider = ({ children }) => {
           ProgramService: params.UWType,
           Amount: params.Amount,
           Notes: params.Notes,
-          Form: 'Underwriting', // Always set to 'Underwriting'
+          Form: 'Underwriting', // Always set to 'Underwriting',
+          IDNumber: params.IDNumber
         }
 
         // Make the POST request

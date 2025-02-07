@@ -68,7 +68,6 @@ const MediaManager = ({ program }) => {
               value={formData.shortDescription}
               onChange={handleChange}
               placeholder='Enter a concise description'
-              isRequired='false'
             />
             <TextAreaInput
               label='Long Description'
@@ -76,7 +75,6 @@ const MediaManager = ({ program }) => {
               value={formData.longDescription}
               onChange={handleChange}
               placeholder='Enter a detailed description'
-              isRequired
             />
             <BooleanInput
               label='Descriptions reviewed?'
