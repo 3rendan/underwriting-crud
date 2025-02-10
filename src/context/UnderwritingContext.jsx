@@ -1,9 +1,11 @@
 
-import React, { createContext, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { useAuth } from './AuthContext'
 
-const UnderwritingContext = createContext()
+export const UnderwritingContext = createContext()
+export const useUnderwriting = () => useContext(UnderwritingContext)
+
 
 export const UnderwritingProvider = ({ children }) => {
   const { token, isAuthenticated, getToken, validateToken } = useAuth()
@@ -38,6 +40,11 @@ export const UnderwritingProvider = ({ children }) => {
   const getUnderwriter = async (unid) => {
     console.log(unid)
   }
+
+  const editUnderwriter = (underwriter) => {
+    console.log(underwriter)
+  }
+  
 
   const createUnderwriter = async (params) => {
     try {
@@ -89,7 +96,8 @@ export const UnderwritingProvider = ({ children }) => {
       value={{
         getUnderwriter,
         getUnderwriters,
-        createUnderwriter
+        createUnderwriter,
+        editUnderwriter
       }}
     >
       {children}

@@ -8,6 +8,7 @@ import Tab from 'react-bootstrap/Tab'
 import ProgramTombstone from './ProgramTombstone'
 import Underwriting from './underwriting/Underwriting'
 import ProgramInfo from './tabs/ProgramInfo'
+import { displayTitle } from '../../utilities/helpers'
 
 const ProgramPage = () => {
   const { getProgram } = useContext(ProgramsContext)
@@ -71,7 +72,7 @@ const ProgramPage = () => {
 
   return (
     <>
-      <h2 className='text-center mb-3'>{program.Title}</h2>
+      <h2 className='text-center mb-3'>{displayTitle(program.Title)}</h2>
       <ProgramTombstone program={program} />
       {console.log(program)}
       <Container>

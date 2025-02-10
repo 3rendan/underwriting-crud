@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react'
 import axios from 'axios'
-import { programsStatic } from '../assets/static/programData'
+import { programsStatic } from '../assets/static/programsData'
 import { useAuth } from './AuthContext'
 
 const ProgramsContext = createContext()

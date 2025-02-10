@@ -1,0 +1,65 @@
+/* Table Styling */
+.underwriting-container {
+  padding: 20px;
+}
+
+.underwriter-table-headings {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.underwriter-table {
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.underwriter-row {
+  padding: 10px 0;
+  margin: 0;
+}
+
+.even-row {
+  background-color: #ffffff; /* White background */
+}
+
+.odd-row {
+  background-color: #f8f9fa; /* Light grey background */
+}
+
+.underwriter-row:hover {
+  background-color: #e9ecef; /* Hover effect */
+}
+
+.single-row-form {
+  width: 100%;
+}
+
+/* Edit Icon Styling */
+.edit-icon {
+  cursor: pointer;
+  color: #6c757d; /* Grey color */
+}
+
+.edit-icon:hover {
+  color: #0d6efd; /* Blue color on hover */
+}
+
+/* Modal Styling */
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e6;
+}
