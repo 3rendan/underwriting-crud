@@ -1,32 +1,66 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Underwriter from './Underwriter'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { useUnderwriting } from '../../../context/UnderwritingContext' // Import the context
 
-const Underwriting = ({ underwriters, addUnderwriter }) => {
+const Underwriting = ({ program }) => {
+  const { createUnderwriter, getUnderwriters } = useUnderwriting() // Use context functions
+  const [underwriters, setUnderwriters] = useState([]) // Manage underwriters state locally
   const [showForm, setShowForm] = useState(false) // State to control form visibility
   const [underwriter, setUnderwriter] = useState('')
   const [amount, setAmount] = useState(0)
   const [notes, setNotes] = useState('')
 
-  const handleAmountChange = (index, newAmount) => {
-    const updatedUnderwriters = underwriters.map((underwriter) =>
-      underwriter.index === index ? { ...underwriter, Amount: newAmount } : underwriter
-    )
-    // setUnderwriters(updatedUnderwriters)
-  }
+  // Fetch underwriters on component mount
+  useEffect(() => {
+    const fetchUnderwriters = async () => {
+      try {
+        const data = await getUnderwriters(program.IDNumber)
+        setUnderwriters(data)
+      } catch (error) {
+        console.error('Error fetching underwriters:', error)
+      }
+    }
+
+    fetchUnderwriters()
+  }, [program.IDNumber, getUnderwriters])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Call the addUnderwriter function with the form data
-    addUnderwriter({ Underwriter: underwriter, Amount: amount, Notes: notes })
-    setUnderwriter('')
-    setAmount(0)
-    setNotes('')
-    setShowForm(false) // Hide the form after submission
+    // Call the createUnderwriter function with the form data
+    createUnderwriter({
+      Underwriter: underwriter,
+      Amount: amount,
+      Notes: notes,
+      IDNumber: program.IDNumber,
+      Title: program.Title,
+    })
+      .then((response) => {
+        // Reset form fields and hide the form
+        setUnderwriter('')
+        setAmount(0)
+        setNotes('')
+        setShowForm(false)
+
+        // Add the new underwriter to the local state
+        const newUnderwriter = {
+          Underwriter: underwriter,
+          Amount: amount,
+          Notes: notes,
+          IDNumber: program.IDNumber,
+          Title: program.Title,
+          '@UNID': response.data['@meta'].unid, // Use the UNID from the response
+        }
+        setUnderwriters((prevUnderwriters) => [...prevUnderwriters, newUnderwriter])
+      })
+      .catch((error) => {
+        console.error('Error adding underwriter:', error)
+      })
   }
 
   if (!underwriters) return 'loading...'
@@ -88,7 +122,7 @@ const Underwriting = ({ underwriters, addUnderwriter }) => {
         <Col><h6>Underwriter</h6></Col>
         <Col><h6>Amount</h6></Col>
         <Col><h6>Episodes</h6></Col>
-        <Col><h6>Period</h6></Col>
+        <Col><h6>Notes</h6></Col>
       </Row>
 
       {/* Underwriters List */}
@@ -98,10 +132,12 @@ const Underwriting = ({ underwriters, addUnderwriter }) => {
         ) : (
           underwriters.map((underwriter, index) => (
             <Underwriter
-              key={underwriter.index}
+              key={underwriter['@unid']} // Use UNID as the key
               underwriter={underwriter}
-              onAmountChange={handleAmountChange}
               isEvenRow={index % 2 === 0} // Alternate row backgrounds
+              title={program.Title}
+              id={program.IDNumber}
+              unid={underwriter['@unid']}
             />
           ))
         )}

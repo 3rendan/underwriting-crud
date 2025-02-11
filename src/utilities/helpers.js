@@ -1,4 +1,4 @@
-export const formattedNumber = (number) => {
+export const formattedCurrencyNumber = (number) => {
   // Convert the input to a number if it's a string
   const parsedNumber = typeof number === 'string' ? parseFloat(number) : number;
 

@@ -1,3 +1,11 @@
-# Underwriting 25-02-03
+# Underwriting 25-02-10
 
-1. What needs to be shown?
+1. What is editable?
+   1. Underwriter
+   2. amount
+
+id, programTitle,
+
+title 
+season in reverse
+release in reverse

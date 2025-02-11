@@ -1,109 +1,112 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import CurrencyInput from '../../../forms/inputs/CurrencyInput'
-import { Pencil } from 'react-bootstrap-icons' // Import the pen icon
+import { Pencil, Trash } from 'react-bootstrap-icons' // Import the Trash icon
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useUnderwriting } from '../../../context/UnderwritingContext'
+import TextInput from '../../../forms/inputs/TextInput'
+import TextAreaInput from '../../../forms/inputs/TextAreaInput'
+import CurrencyInput from '../../../forms/inputs/CurrencyInput'
 
-const Underwriter = ({ underwriter, onAmountChange, isEvenRow }) => {
-  const { editUnderwriter } = useUnderwriting()
+const Underwriter = ({ underwriter, isEvenRow, id, title, unid }) => {
+  const { editUnderwriter, deleteUnderwriter } = useUnderwriting() // Destructure deleteUnderwriter
+  const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
-    amount: underwriter.Amount || 0
+    Underwriter: underwriter.Underwriter || '',
+    Amount: 45,
+    Notes: underwriter.Notes || '',
+    IDNumber: id,
+    Title: title,
   })
 
-  const [duration, setDuration] = useState('')
-  const [showModal, setShowModal] = useState(false) // State to control modal visibility
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
-
-  useEffect(() => {
-    // Construct the date range as contractStartDate to contractEndDate in MM/DD/YYYY format
-    if (underwriter?.ContractStartDate && underwriter?.ContractEndDate) {
-      const formattedStartDate = formatDate(new Date(underwriter.ContractStartDate))
-      const formattedEndDate = formatDate(new Date(underwriter.ContractEndDate))
-      setDuration(`${formattedStartDate} to ${formattedEndDate}`)
-      setStartDate(formattedStartDate)
-      setEndDate(formattedEndDate)
-    }
-  }, [underwriter])
-
-  const formatDate = (date) => {
-    const month = String(date.getMonth() + 1).padStart(2, '0') // Months are 0-indexed
-    const day = String(date.getDate()).padStart(2, '0')
-    const year = date.getFullYear()
-    return `${month}/${day}/${year}`
-  }
-
-  const handleChange = (event) => {
-    const { value } = event.target
-    setFormData({ amount: value }) // Update local state
-    onAmountChange(underwriter.index, value) // Pass the value to the parent component
-  }
-
   const handleEditClick = () => {
-    setShowModal(true) // Show the modal when the pen icon is clicked
+    setShowModal(true)
   }
 
-  const handleSave = () => {
-    // Update the duration and close the modal
-    setDuration(`${startDate} to ${endDate}`)
-    setShowModal(false)
+  const handleSave = async () => {
+    try {
+      await editUnderwriter(formData, unid)
+      setShowModal(false)
+    } catch (error) {
+      console.error('Error updating underwriter:', error)
+    }
   }
 
   const handleClose = () => {
-    setShowModal(false) // Close the modal without saving
+    setShowModal(false)
   }
 
-  if (underwriter === undefined) return 'loading...'
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+  }
+
+  const handleCurrencyChange = (value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      Amount: value,
+    }))
+  }
+
+  const handleDelete = async () => {
+    try {
+      await deleteUnderwriter(unid) // Call deleteUnderwriter with the UNID
+      console.log('Underwriter deleted successfully')
+      // Optionally, you can refresh the list of underwriters or handle UI updates here
+    } catch (error) {
+      console.error('Error deleting underwriter:', error)
+    }
+  }
+
+  if (underwriter === undefined || !title || !id) return 'loading...'
 
   return (
     <>
       <Row className={`underwriter-row ${isEvenRow ? 'even-row' : 'odd-row'}`}>
+        <Col xs='auto' className='mt-2'>
+          <Pencil className='edit-icon' onClick={handleEditClick} /> {/* Edit icon */}
+          <Trash className='delete-icon ms-2' onClick={handleDelete} /> {/* Delete icon */}
+        </Col>
         <Col className='mt-2'>{underwriter.Underwriter}</Col>
-        <Col>
-          <CurrencyInput
-            name='amount'
-            value={formData.amount}
-            onChange={handleChange}
-            placeholder=''
-            className='single-row-form'
-          />
-        </Col>
-        <Col className='text-center'>{underwriter.Episodes}</Col>
-        <Col className='d-flex text-center justify-content-center'>
-          {duration}
-          <Pencil className='ms-2 edit-icon mt-2' onClick={handleEditClick} /> {/* Pen icon */}
-        </Col>
+        <Col className='mt-2'>{underwriter.Amount}</Col>
+        <Col className='mt-2'>{underwriter.Episodes}</Col>
+        <Col className='mt-2'>{underwriter.Notes}</Col>
       </Row>
 
       {/* Edit Modal */}
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Duration</Modal.Title>
+          <Modal.Title>Edit Underwriting Record</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId='startDate'>
-              <Form.Label>Start Date</Form.Label>
-              <Form.Control
-                type='text'
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                placeholder='MM/DD/YYYY'
-              />
-            </Form.Group>
-            <Form.Group controlId='endDate'>
-              <Form.Label>End Date</Form.Label>
-              <Form.Control
-                type='text'
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                placeholder='MM/DD/YYYY'
-              />
-            </Form.Group>
+            <TextInput
+              label='Underwriter'
+              id='Underwriter'
+              name='Underwriter'
+              value={formData.Underwriter}
+              onChange={handleInputChange}
+            />
+            <CurrencyInput
+              label='Amount'
+              name='Amount'
+              value={formData.Amount}
+              onChange={handleCurrencyChange}
+              placeholder='Amount'
+              className='single-row-form'
+            />
+            <TextAreaInput
+              label='Notes'
+              id='Notes'
+              name='Notes'
+              value={formData.Notes}
+              onChange={handleInputChange}
+            />
           </Form>
         </Modal.Body>
         <Modal.Footer>

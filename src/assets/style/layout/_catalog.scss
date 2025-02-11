@@ -1,11 +1,16 @@
 .tombstone {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  margin: .5rem;
+  margin: .15rem;
   background-color: $lemon;
   color: $blue;
-  border-radius: $border-radius;
-  padding: 2rem;
+  // padding: .75rem;
+  p {
+    border-radius: $border-radius;
+    padding: .25rem;
+    border: solid $blue 1px;
+    margin-bottom: 0;
+  }
 }
 
 /* Tab styles */

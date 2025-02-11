@@ -20,14 +20,17 @@ const ProgramTombstone = ({program}) => {
 
   return (
     <>
-      <div className='tombstone'>
-        <p><strong>Author</strong> {program.Author}</p>
-        <p><strong>Last modified on</strong> {formatDateTime(program['@meta'].lastmodified)}</p>
-        <p><strong>Updated by</strong> { program.UpdatedBy ? program.UpdatedBy : program.Author }</p>
-        <p><strong>Added file</strong> {formatDateTime(program['@meta'].addedtofile)}</p>
-        { program.ProjectedReleaseDate && <p><strong>Projected Release Date</strong> {program.ProjectedReleaseDate}</p>}
-        <p><strong>Supplied by</strong> {program.SupplierCompany}</p>
-        <p><strong>Classification</strong> {program.Classification}</p>
+      <div className='tombstone mb-2'>
+        <p><strong>Program service:</strong> {program.ProgramService}</p>
+        <p><strong>Supplier:</strong> {program.SupplierCompany}</p>
+        <p><strong>Status:</strong> {program.ProgramStatus}</p>
+        <p><strong># of Episodes:</strong> {program.NumberOfEpisodes}</p>
+        <p><strong>Release date:</strong> { program.ProjectedReleaseDate }</p>
+        <p><strong>Length of Program:</strong> {program.ProgramLength}</p>
+        <p><strong>Contract end date:</strong> {program.ContractEndDate}</p>
+        <p><strong>Broadcast Rights:</strong> {program.BroadcastRights}</p>
+        <p><strong># of current licensees:</strong> {program.CurrentLicensees}</p>
+        <p><strong>NOLA Code:</strong> {program.NolaCode}</p>
       </div>
     </>
   )

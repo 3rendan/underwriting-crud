@@ -73,9 +73,9 @@ const ProgramPage = () => {
   return (
     <>
       <h2 className='text-center mb-3'>{displayTitle(program.Title)}</h2>
-      <ProgramTombstone program={program} />
-      {console.log(program)}
       <Container>
+        <ProgramTombstone program={program} />
+
         {/* Tabs with full width */}
         <Tabs
           defaultActiveKey='programInfo'
@@ -94,7 +94,7 @@ const ProgramPage = () => {
               <Underwriting
                 underwriters={underwriters}
                 addUnderwriter={handleAddUnderwriter} // Pass the function down
-                id={program.IDNumber}
+                program={program}
               />
             </Container>
           </Tab>
