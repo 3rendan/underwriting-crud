@@ -8,8 +8,7 @@ const ProgramTombstone = ({ program }) => {
   return (
     <>
       <div className='tombstone mb-2'>
-        tombstone
-        {/* <p>
+        <p>
           <strong>Program service:</strong> {` ${program.ProgramService}`}
           {program.Presentation === 'Yes' && ' Presentation'}
         </p>
@@ -22,9 +21,9 @@ const ProgramTombstone = ({ program }) => {
         <p>
           <strong># of Episodes:</strong> {program.NumberOfEpisodes}
         </p>
-        <p>
+        {/* <p>
           <strong>Release date:</strong>{' '}
-          {formatProjectedReleaseDate(program.ProjectedReleaseDate)}
+          {formatProjectedReleaseDate(program.ProjectedReleaseDate)} 
         </p>
         <p>
           <strong>Length of Program:</strong> {program.ProgramLength}
@@ -35,8 +34,8 @@ const ProgramTombstone = ({ program }) => {
         </p>
         <p>
           <strong>Contract end date:</strong> {formatContractDate(program.ContractEndDate)}
-        </p>
-        <p>
+        </p>*/}
+        <p> 
           <strong>Broadcast Rights:</strong> {program.BroadcastRights}
         </p>
         <p>
@@ -44,7 +43,7 @@ const ProgramTombstone = ({ program }) => {
         </p>
         <p>
           <strong>NOLA Code:</strong> {program.NolaCode}
-        </p> */}
+        </p>
       </div>
     </>
   )
