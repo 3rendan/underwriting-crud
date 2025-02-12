@@ -9,6 +9,8 @@ import ProgramTombstone from './ProgramTombstone'
 import Underwriting from './underwriting/Underwriting'
 import ProgramInfo from './tabs/ProgramInfo'
 import { displayTitle } from '../../utilities/helpers'
+import { programData } from '../../assets/static/programData'
+
 
 const ProgramPage = () => {
   const { getProgram } = useContext(ProgramsContext)
@@ -18,32 +20,33 @@ const ProgramPage = () => {
   const [underwriters, setUnderwriters] = useState(null)
 
   useEffect(() => {
-    const fetchProgram = async () => {
-      try {
-        const data = await getProgram(id)
-        setProgram(data)
-      } catch (error) {
-        console.error('Failed to fetch program:', error)
-      }
-    }
+    setProgram(programData)
+    // const fetchProgram = async () => {
+    //   try {
+    //     const data = await getProgram(id)
+    //     setProgram(data)
+    //   } catch (error) {
+    //     console.error('Failed to fetch program:', error)
+    //   }
+    // }
 
-    fetchProgram()
+    // fetchProgram()
   }, [id, getProgram])
 
-  useEffect(() => {
-    if (program && program.IDNumber) {
-      const fetchUnderwriters = async () => {
-        try {
-          const data = await getUnderwriters(program.IDNumber)
-          setUnderwriters(data)
-        } catch (error) {
-          console.error('Failed to fetch underwriters:', error)
-        }
-      }
+  // useEffect(() => {
+  //   if (program && program.IDNumber) {
+  //     const fetchUnderwriters = async () => {
+  //       try {
+  //         const data = await getUnderwriters(program.IDNumber)
+  //         setUnderwriters(data)
+  //       } catch (error) {
+  //         console.error('Failed to fetch underwriters:', error)
+  //       }
+  //     }
 
-      fetchUnderwriters()
-    }
-  }, [program, getUnderwriters])
+  //     fetchUnderwriters()
+  //   }
+  // }, [program, getUnderwriters])
 
   const handleAddUnderwriter = async (formData) => {
     try {
@@ -68,11 +71,11 @@ const ProgramPage = () => {
     }
   }
 
-  if (!program || !underwriters) return <p>Loading...</p>
+  if (!program) return <p>Loading...</p>
 
   return (
     <>
-      <h2 className='text-center mb-3'>{displayTitle(program.Title)}</h2>
+      <h2 className='text-center mb-3'>{program.Title}</h2>
       <Container>
         <ProgramTombstone program={program} />
 
@@ -89,7 +92,7 @@ const ProgramPage = () => {
               <ProgramInfo program={program} />
             </Container>
           </Tab>
-          <Tab eventKey='underwriting' title='Underwriting'>
+          {/* <Tab eventKey='underwriting' title='Underwriting'>
             <Container className='program-details-container py-3'>
               <Underwriting
                 underwriters={underwriters}
@@ -97,7 +100,7 @@ const ProgramPage = () => {
                 program={program}
               />
             </Container>
-          </Tab>
+          </Tab> */}
         </Tabs>
       </Container>
     </>

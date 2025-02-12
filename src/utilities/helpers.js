@@ -1,3 +1,5 @@
+import { parse, format } from 'date-fns'
+
 export const formattedCurrencyNumber = (number) => {
   // Convert the input to a number if it's a string
   const parsedNumber = typeof number === 'string' ? parseFloat(number) : number;
@@ -39,4 +41,18 @@ export const displayTitle = (str) => {
   }
 
   return title
+}
+
+export const formatProjectedReleaseDate = (dateString) => {
+  // Parse the date string (e.g., 'Saturday, October 26, 2019 (RAPID)')
+  const date = parse(dateString, "EEEE, MMMM dd, yyyy '(RAPID)'", new Date())
+  // Format the date as 'Day, Month DD, YYYY'
+  return format(date, 'EEEE, MMMM dd, yyyy')
+}
+
+export const formatContractDate = (dateString) => {
+  // Parse the date string (e.g., '2025-10-25')
+  const date = parse(dateString, 'yyyy-MM-dd', new Date())
+  // Format the date as 'Day, Month DD, YYYY'
+  return format(date, 'EEEE, MMMM dd, yyyy')
 }

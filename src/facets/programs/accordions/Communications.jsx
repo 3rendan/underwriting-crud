@@ -47,7 +47,7 @@ const Communications = ({ program }) => {
           onClick={() => setIsOpen(!isOpen)}
           style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
         >
-          <span style={{ marginLeft: '10px' }}>Communications</span>
+          <h5 style={{ marginLeft: '10px' }}>Communications</h5>
         </Accordion.Header>
       <Accordion.Collapse eventKey="0">
         <Accordion.Body className='pc-body'>

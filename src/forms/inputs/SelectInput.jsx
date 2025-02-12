@@ -1,5 +1,5 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
+import React from 'react'
+import Form from 'react-bootstrap/Form'
 
 const SelectInput = ({ label, id, value, onChange, options }) => {
   return (
@@ -14,7 +14,7 @@ const SelectInput = ({ label, id, value, onChange, options }) => {
         ))}
       </Form.Control>
     </Form.Group>
-  );
-};
+  )
+}
 
-export default SelectInput;
+export default SelectInput

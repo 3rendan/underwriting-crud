@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
+import TextInput from '../../../forms/inputs/TextInput'
+import CheckboxInput from '../../../forms/inputs/CheckboxInput'
 
-const Accounting
- = ({ program }) => {
+const Accounting = ({ program }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [ formData, setFormData ] = useState({})
 
   return (
     <Accordion className='program-details-accordion'>
@@ -13,25 +15,17 @@ const Accounting
           onClick={() => setIsOpen(!isOpen)}
           style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
         >
-          <span style={{ marginLeft: '10px' }}>Accounting</span>
+          <h5 style={{ marginLeft: '10px' }}>Accounting</h5>
         </Accordion.Header>
       <Accordion.Collapse eventKey="0">
         <Accordion.Body>
-        <strong>Availability</strong>
-          <p>
-             {program.MMGeneralStreamingGeo}
-          </p>
-          <strong>Short Description</strong>
-          <p>
-             {program.MMShortDesc}
-          </p>
-          <strong>Long Description</strong>
-          <p>
-            {program.MMLongDesc}
-          </p>
-          <p>
-            <strong>Passport availability:</strong> {program.MMPassportStreamingGeo}
-          </p>
+        {/* <CheckboxInput
+            label='Format'
+            id='format'
+            value={formData.format}
+            onChange={handleChange}
+            options={formatOptions} */}
+          {/* /> */}
         </Accordion.Body>
       </Accordion.Collapse>
       </Accordion.Item>

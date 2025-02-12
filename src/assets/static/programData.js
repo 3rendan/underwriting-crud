@@ -1,4 +1,5 @@
-{
+export const programData = [
+    {
     "@meta": {
         "noteid": 2490,
         "unid": "4412FD6075AE092785258C070070FD10",
@@ -365,3 +366,4 @@
         "No values found for item yesCallSigns"
     ]
 }
+]
