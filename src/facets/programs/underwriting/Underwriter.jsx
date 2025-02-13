@@ -5,17 +5,15 @@ import { Pencil, Trash } from 'react-bootstrap-icons' // Import the Trash icon
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import { useUnderwriting } from '../../../context/UnderwritingContext'
 import TextInput from '../../../forms/inputs/TextInput'
 import TextAreaInput from '../../../forms/inputs/TextAreaInput'
 import CurrencyInput from '../../../forms/inputs/CurrencyInput'
 
-const Underwriter = ({ underwriter, isEvenRow, id, title, unid }) => {
-  const { editUnderwriter, deleteUnderwriter } = useUnderwriting() // Destructure deleteUnderwriter
+const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDelete }) => {
   const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
     Underwriter: underwriter.Underwriter || '',
-    Amount: 45,
+    Amount: underwriter.Amount || 0,
     Notes: underwriter.Notes || '',
     IDNumber: id,
     Title: title,
@@ -27,7 +25,7 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid }) => {
 
   const handleSave = async () => {
     try {
-      await editUnderwriter(formData, unid)
+      await onUpdate(formData, unid) // Call the onUpdate function
       setShowModal(false)
     } catch (error) {
       console.error('Error updating underwriter:', error)
@@ -55,9 +53,7 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid }) => {
 
   const handleDelete = async () => {
     try {
-      await deleteUnderwriter(unid) // Call deleteUnderwriter with the UNID
-      console.log('Underwriter deleted successfully')
-      // Optionally, you can refresh the list of underwriters or handle UI updates here
+      await onDelete(unid) // Call the onDelete function
     } catch (error) {
       console.error('Error deleting underwriter:', error)
     }

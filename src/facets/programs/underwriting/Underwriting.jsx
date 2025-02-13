@@ -9,14 +9,15 @@ import Col from 'react-bootstrap/Col'
 import { useUnderwriting } from '../../../context/UnderwritingContext' // Import the context
 
 const Underwriting = ({ program }) => {
-  const { createUnderwriter, getUnderwriters } = useUnderwriting() // Use context functions
+  const { createUnderwriter, getUnderwriters, editUnderwriter, deleteUnderwriter } = useUnderwriting() // Use context functions
   const [underwriters, setUnderwriters] = useState([]) // Manage underwriters state locally
   const [showForm, setShowForm] = useState(false) // State to control form visibility
   const [underwriter, setUnderwriter] = useState('')
   const [amount, setAmount] = useState(0)
   const [notes, setNotes] = useState('')
+  const [refreshKey, setRefreshKey] = useState(0) // State to trigger refetch
 
-  // Fetch underwriters on component mount
+  // Fetch underwriters on component mount or when refreshKey changes
   useEffect(() => {
     const fetchUnderwriters = async () => {
       try {
@@ -28,39 +29,48 @@ const Underwriting = ({ program }) => {
     }
 
     fetchUnderwriters()
-  }, [program.IDNumber, getUnderwriters])
+  }, [program.IDNumber, getUnderwriters, refreshKey])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Call the createUnderwriter function with the form data
-    createUnderwriter({
-      Underwriter: underwriter,
-      Amount: amount,
-      Notes: notes,
-      IDNumber: program.IDNumber,
-      Title: program.Title,
-    })
-      .then((response) => {
-        // Reset form fields and hide the form
-        setUnderwriter('')
-        setAmount(0)
-        setNotes('')
-        setShowForm(false)
+    try {
+      await createUnderwriter({
+        Underwriter: underwriter,
+        Amount: amount,
+        Notes: notes,
+        IDNumber: program.IDNumber,
+        Title: program.Title,
+      })
+      // Reset form fields and hide the form
+      setUnderwriter('')
+      setAmount(0)
+      setNotes('')
+      setShowForm(false)
+      // Trigger a refetch
+      setRefreshKey((prevKey) => prevKey + 1)
+    } catch (error) {
+      console.error('Error adding underwriter:', error)
+    }
+  }
 
-        // Add the new underwriter to the local state
-        const newUnderwriter = {
-          Underwriter: underwriter,
-          Amount: amount,
-          Notes: notes,
-          IDNumber: program.IDNumber,
-          Title: program.Title,
-          '@UNID': response.data['@meta'].unid, // Use the UNID from the response
-        }
-        setUnderwriters((prevUnderwriters) => [...prevUnderwriters, newUnderwriter])
-      })
-      .catch((error) => {
-        console.error('Error adding underwriter:', error)
-      })
+  const handleUpdateUnderwriter = async (updatedUnderwriter, unid) => {
+    try {
+      await editUnderwriter(updatedUnderwriter, unid)
+      // Trigger a refetch
+      setRefreshKey((prevKey) => prevKey + 1)
+    } catch (error) {
+      console.error('Error updating underwriter:', error)
+    }
+  }
+
+  const handleDeleteUnderwriter = async (unid) => {
+    try {
+      await deleteUnderwriter(unid)
+      // Trigger a refetch
+      setRefreshKey((prevKey) => prevKey + 1)
+    } catch (error) {
+      console.error('Error deleting underwriter:', error)
+    }
   }
 
   if (!underwriters) return 'loading...'
@@ -138,6 +148,8 @@ const Underwriting = ({ program }) => {
               title={program.Title}
               id={program.IDNumber}
               unid={underwriter['@unid']}
+              onUpdate={handleUpdateUnderwriter} // Pass update handler
+              onDelete={handleDeleteUnderwriter} // Pass delete handler
             />
           ))
         )}
