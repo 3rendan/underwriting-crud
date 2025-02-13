@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 
-const CurrencyInput = ({ label, name, value, onChange, placeholder, isRequired }) => {
+const CurrencyInput = ({ label, name, value, onChange, placeholder, error, isRequired }) => {
   const handleChange = (e) => {
     const { value } = e.target
     // Remove non-numeric characters (except decimal point)
@@ -18,17 +18,19 @@ const CurrencyInput = ({ label, name, value, onChange, placeholder, isRequired }
       {label && (
         <Form.Label style={{ flex: '0 0 3rem', marginRight: '10px' }}>
           {label}
-          {isRequired && <span className='text-danger'> *</span>}
+          {isRequired && <span className="text-danger"> *</span>}
         </Form.Label>
       )}
       <Form.Control
-        type='text' // Use 'text' to allow formatting
+        type="text" // Use "text" to allow formatting
         name={name}
-        value={value}
+        value={formattedValue}
         onChange={handleChange}
         placeholder={placeholder}
+        isInvalid={!!error}
         style={{ flex: '1', margin: '0 auto', textAlign: 'right' }} // Align text to the right
       />
+      {error && <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>}
     </Form.Group>
   )
 }

@@ -12,14 +12,14 @@ const ProgramInfo = ({program}) => {
 
   return (
     <div className='accordions'>
-      <SupplierContacts program={program} />
+      {/* <SupplierContacts program={program} /> */}
       <ProgramOfferData program={program} />
-      <MediaManager program={program}/>  
+      {/* <MediaManager program={program}/>  
       <Voting program={program} />
       <ProgramConfirmationData program={program} />
       <Communications program={program} />
       <DistributionServices program={program} />
-      <Accounting program={program} />  
+      <Accounting program={program} />   */}
     </div>
   )
 }

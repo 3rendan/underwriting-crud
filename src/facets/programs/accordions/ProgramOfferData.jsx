@@ -9,37 +9,37 @@ import { Row } from 'react-bootstrap'
 const ProgramOfferData = ({ program }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [ formData, setFormData ] = useState({
-    programService: '',
-    presentation: false,
-    submittedCreateProgramming: false,
-    submittedWorldProgramming: false,
-    createPremiere: false,
-    promoExpected: false,
-    promoComment: '',
-    fundCategory: '',
-    screeningStatus: '',
-    copyrightDate: '',
-    copyrightHolder: '',
-    numOfEpisodes: '',
-    programLength: '',
-    containsFilters: false,
-    category: '',
-    ptvGenre: '',
-    schedulingSuggestions: '',
-    nationalBasePrice: '',
-    video: '',
-    aptContact: '',
-    offerStatus: '',
-    screeningTape: '',
-    descriptionRoutingStatus: '',
-    seasonYear: '',
-    offeredVia: '',
-    pageNumOfferBook: '',
-    rating: '',
-    usTvPremiere: false,
-    contentAdvisory: false,
-    stationEditFlags: false,
-    dateFlagUpdated: ''
+    programService: program.ProgramService || '',
+    presentation: program.Presentation || false,
+    submittedCreateProgramming: program.ProgramService || false,
+    submittedWorldProgramming: program.ProgramService || false,
+    createPremiere: program.ProgramService || false,
+    promoExpected: program.ProgramService || false,
+    promoComments: program.PromoComments || '',
+    fundCategory: program.ProgramFund || '',
+    screeningStatus: program.ScreeningStatus || '',
+    copyrightDate: program.CopyrightDate || '',
+    CopyrightHolder: program.CopyrightHolder || '',
+    numOfEpisodes: program.NumberOfEpisodes || '',
+    programLength: program.ProgramLength || '',
+    containsFilters: program.ProgramService || false,
+    category: program.Category || '',
+    ptvGenre: program.PTVGenre || '',
+    schedulingSuggestions: program.SchedulingSuggestions || '',
+    nationalBasePrice: program.NationalBasePrice || '',
+    video: program.Video || '',
+    aptContact: '', // what is this?
+    offerStatus: program.offerStatus || '',
+    screeningTape: '', // what is this?
+    descriptionRoutingStatus: program.DescriptionRoutingStatus || '',
+    seasonYear: program.SeasonYear || '',
+    offeredVia: '', // what is this?
+    pageNumOfferBook: program.PageNumber || '',
+    rating: program.Rating || '',
+    usTvPremiere: program.ProgramService || false,
+    contentAdvisory: program.ProgramService || false,
+    stationEditFlags: program.ProgramService || false,
+    flagUpdatedDate: program.FlagUpdatedDate || ''
   })
 
   const handleChange = (e) => {
@@ -261,8 +261,8 @@ const ProgramOfferData = ({ program }) => {
           />
           <DateInput
             label='Flag updated date'
-            id='dateFlagUpdated'
-            value={formData.dateFlagUpdated}
+            id='flagUpdatedDate'
+            value={formData.flagUpdatedDate}
             onChange={handleChange}
           />
 

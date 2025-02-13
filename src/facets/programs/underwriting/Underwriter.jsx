@@ -44,10 +44,11 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDele
     }))
   }
 
-  const handleCurrencyChange = (value) => {
+  const handleCurrencyChange = (e) => {
+    const { name, value } = e.target
     setFormData((prevData) => ({
       ...prevData,
-      Amount: value,
+      [name]: value,
     }))
   }
 

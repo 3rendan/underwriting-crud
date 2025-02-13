@@ -43,7 +43,7 @@ const SupplierContacts = ({ program }) => {
       email: '',
       phoneNumber: '',
     },
-    producedPresentedBy: '',
+    producedPresentedBy: program.PresentedBy || '',
     stationRelationsContact: {
       company: '',
       streetAddress: '',

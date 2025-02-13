@@ -75,7 +75,6 @@ const ProgramPage = () => {
       <h2 className='text-center mb-3'>{displayTitle(program.Title)}</h2>
       <Container>
         <ProgramTombstone program={program} />
-
         {/* Tabs with full width */}
         <Tabs
           defaultActiveKey='programInfo'
