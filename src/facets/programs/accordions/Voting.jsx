@@ -2,11 +2,9 @@ import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
 import BooleanInput from '../../../forms/inputs/BooleanInput'
 
-const Video = ({ program }) => {
+const Voting = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [ formData, setFormData ] = useState({
-    borderStationsIncluded: false
-  })
+
 
   const handleChange = (e) => {
     const { id, value } = e.target
@@ -42,5 +40,5 @@ const Video = ({ program }) => {
   )
 }
 
-export default Video
+export default Voting
 

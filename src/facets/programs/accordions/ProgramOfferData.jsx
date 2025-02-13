@@ -4,43 +4,11 @@ import TextInput from '../../../forms/inputs/TextInput'
 import BooleanInput from '../../../forms/inputs/BooleanInput'
 import SelectInput from '../../../forms/inputs/SelectInput'
 import DateInput from '../../../forms/inputs/DateInput'
+import { options } from '../../../forms/formData/formOptions'
 import { Row } from 'react-bootstrap'
 
-const ProgramOfferData = ({ program }) => {
+const ProgramOfferData = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [ formData, setFormData ] = useState({
-    programService: program.ProgramService || '',
-    presentation: program.Presentation || false,
-    submittedCreateProgramming: program.ProgramService || false,
-    submittedWorldProgramming: program.ProgramService || false,
-    createPremiere: program.ProgramService || false,
-    promoExpected: program.ProgramService || false,
-    promoComments: program.PromoComments || '',
-    fundCategory: program.ProgramFund || '',
-    screeningStatus: program.ScreeningStatus || '',
-    copyrightDate: program.CopyrightDate || '',
-    CopyrightHolder: program.CopyrightHolder || '',
-    numOfEpisodes: program.NumberOfEpisodes || '',
-    programLength: program.ProgramLength || '',
-    containsFilters: program.ProgramService || false,
-    category: program.Category || '',
-    ptvGenre: program.PTVGenre || '',
-    schedulingSuggestions: program.SchedulingSuggestions || '',
-    nationalBasePrice: program.NationalBasePrice || '',
-    video: program.Video || '',
-    aptContact: '', // what is this?
-    offerStatus: program.offerStatus || '',
-    screeningTape: '', // what is this?
-    descriptionRoutingStatus: program.DescriptionRoutingStatus || '',
-    seasonYear: program.SeasonYear || '',
-    offeredVia: '', // what is this?
-    pageNumOfferBook: program.PageNumber || '',
-    rating: program.Rating || '',
-    usTvPremiere: program.ProgramService || false,
-    contentAdvisory: program.ProgramService || false,
-    stationEditFlags: program.ProgramService || false,
-    flagUpdatedDate: program.FlagUpdatedDate || ''
-  })
 
   const handleChange = (e) => {
     const { id, value } = e.target
@@ -49,24 +17,6 @@ const ProgramOfferData = ({ program }) => {
       [id]: value,
     })
   }
-
-  const screeningStatusOptions = [
-    { value: 'Screened', label: 'Screened' },
-    { value: 'Not Screened', label: 'Not Screened'}
-  ]
-
-  const videoOptions = [
-    { value: 'B&W', label: 'B&W'},
-    { value: 'Color', label: 'Color'},
-    { value: 'Mix', label: 'Mix'}
-  ]
-
-  const offeredViaOptions = [
-    { value: 'Connect Forums', label: 'Connect Forums'},
-    { value: 'Mail', label: 'Mail'},
-    { value: 'Marketplace', label: 'Marketplace'},
-    { value: 'Teleconference', label: 'Teleconference'}
-  ]
 
   return (
     <Accordion className='pod'>
@@ -125,14 +75,14 @@ const ProgramOfferData = ({ program }) => {
             id='screeningStatus'
             value={formData.screeningStatus}
             onChange={handleChange}
-            options={screeningStatusOptions}
+            options={options.screeningStatusOptions}
           />
           <SelectInput
             label='Video'
             id='video'
             value={formData.video}
             onChange={handleChange}
-            options={videoOptions}
+            options={options.videoOptions}
           />
           <TextInput
             label='Offer Status'
@@ -145,7 +95,7 @@ const ProgramOfferData = ({ program }) => {
             id='offeredVia'
             value={formData.offeredVia}
             onChange={handleChange}
-            options={offeredViaOptions}
+            options={options.offeredViaOptions}
           />
           <TextInput
             label='Page number in offer book'
@@ -161,8 +111,8 @@ const ProgramOfferData = ({ program }) => {
           />
           <TextInput
             label='APT Contact'
-            id='aptContact'
-            value={formData.aptContact}
+            id='apsContact'
+            value={formData.apsContact}
             onChange={handleChange}
           />
           <TextInput
@@ -240,8 +190,8 @@ const ProgramOfferData = ({ program }) => {
           />
           <BooleanInput
             label='US Television Premiere'
-            id='usTvPremiere'
-            value={formData.usTvPremiere}
+            id='usPremiere'
+            value={formData.usPremiere}
             onChange={handleChange}
           />
           <BooleanInput

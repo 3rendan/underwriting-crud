@@ -5,24 +5,9 @@ import SocialContactFormInput from '../../../forms/inputs/SocialContactFormInput
 import TextAreaInput from '../../../forms/inputs/TextAreaInput'
 import TextInput from '../../../forms/inputs/TextInput'
 
-const Communications = ({ program }) => {
+const Communications = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [ formData, setFormData ] = useState({
-    promoMaterials: '',
-    merchandiseInfoLink: '',
-    viewerInquiries: {
-      company: '',
-      email: '',
-      phoneNumber: '',
-    },
-    socialContact: {
-      socialName: '',
-      twitter: '',
-      instagram: '',
-      pinterest: ''
-    },
-    contractConfirmationDescription: ''
-  })
+
 
   const handleContactChange = (id, updatedContact) => {
     setFormData({

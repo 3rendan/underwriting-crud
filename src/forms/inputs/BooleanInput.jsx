@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 
 const BooleanInput = ({ label, id, checked, onChange }) => {
   return (
-    <Form.Group controlId={id}>
+    <Form.Group className='mb-2' controlId={id}>
       <Form.Check
         type='checkbox'
         label={label}

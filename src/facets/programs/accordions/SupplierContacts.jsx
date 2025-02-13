@@ -1,68 +1,11 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Accordion from 'react-bootstrap/Accordion'
+import TextInput from '../../../forms/inputs/TextInput'
 import ContactFormInput from '../../../forms/inputs/ContactFormInput'
 
-const SupplierContacts = ({ program }) => {
+const SupplierContacts = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)
-
-  const [formData, setFormData] = useState({
-    mainContact: {
-      company: '',
-      streetAddress: '',
-      city: '',
-      country: '',
-      zipCode: '',
-      email: '',
-      phoneNumber: '',
-    },
-    supplierContact: {
-      company: '',
-      streetAddress: '',
-      city: '',
-      country: '',
-      zipCode: '',
-      email: '',
-      phoneNumber: '',
-    },
-    communicationsContact: {
-      company: '',
-      streetAddress: '',
-      city: '',
-      country: '',
-      zipCode: '',
-      email: '',
-      phoneNumber: '',
-    },
-    operationsContact: {
-      company: '',
-      streetAddress: '',
-      city: '',
-      country: '',
-      zipCode: '',
-      email: '',
-      phoneNumber: '',
-    },
-    producedPresentedBy: program.PresentedBy || '',
-    stationRelationsContact: {
-      company: '',
-      streetAddress: '',
-      city: '',
-      country: '',
-      zipCode: '',
-      email: '',
-      phoneNumber: '',
-    },
-    mediaContact: {
-      company: '',
-      streetAddress: '',
-      city: '',
-      country: '',
-      zipCode: '',
-      email: '',
-      phoneNumber: '',
-    },
-  })
 
   const handleContactChange = (id, updatedContact) => {
     setFormData({
@@ -96,15 +39,12 @@ const SupplierContacts = ({ program }) => {
         </Accordion.Header>
         <Accordion.Collapse eventKey='0'>
           <Accordion.Body>
-            <Form.Group className='mb-2' controlId='producedPresentedBy' style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-              <Form.Label style={{ flex: '0 0 150px', marginRight: '10px' }}>Produced/ Presented By</Form.Label>
-              <Form.Control
-                type='text'
-                value={formData.producedPresentedBy}
-                onChange={handleChange}
-                style={{ flex: '1', margin: '0 auto' }}
-              />
-            </Form.Group>
+            <TextInput
+              label='Produced/ presented by'
+              id='producedPresentedBy'
+              value={formData.producedPresentedBy}
+              onChange={handleChange}
+            />
             <div className='sc-body'>
               <ContactFormInput
                 label='Supplier Contact'

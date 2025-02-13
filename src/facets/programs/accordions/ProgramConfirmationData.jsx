@@ -4,57 +4,10 @@ import DateInput from '../../../forms/inputs/DateInput'
 import BooleanInput from '../../../forms/inputs/BooleanInput'
 import TextInput from '../../../forms/inputs/TextInput'
 import SelectInput from '../../../forms/inputs/SelectInput'
+import { options } from '../../../forms/formData/formOptions'
 
-const ProgramConfirmationData = ({ program }) => {
+const ProgramConfirmationData = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [formData, setFormData] = useState({
-    deliveryDate: '',
-    releaseDate: '',
-    contractStartDate: '',
-    contractEndDate: '',
-    contractExecuted: false,
-    musicRecieved: false,
-    licenseNum: '',
-    guaranteedPrice: '',
-    licenseFee: '',
-    buyout: false,
-    pricingStructure: '',
-    numLicensees: '',
-    currentLicenseFee: '',
-    addOns: '',
-    alerts: '',
-    conversionCosts: false,
-    supplierProvided: '',
-    durationPeriod: '',
-    nationalUnderwriter: '',
-    underwriters: '',
-    localUnderwriting: false,
-    localUnderwritingRestrictions: ''
-  })
-
-  const addOnOptions = [
-    { value: 'Will Be Accepted', label: 'Will Be Accepted'},
-    { value: 'Will Not Be Accepted', label: 'Will Not Be Accepted'},
-    { value: 'Must Be Cleared', label: 'Must Be Cleared'}
-  ]
-
-  const supplierProvidedOptions = [
-    { value: 'Dub & return', label: 'Dub & return'},
-    { value: 'Duration of contract', label: 'Duration of contract'},
-    { value: 'Other period', label: 'Other period'}
-  ]
-
-  const aptRevenueSharingOptions = [
-    { value: 'Yes', label: 'Yes'},
-    { value: 'No', label: 'No'},
-    { value: 'Unknown', label: 'Unknown'}
-  ]
-
-  const nationalUnderwriterOptions = [
-    { value: 'Yes', label: 'Yes'},
-    { value: 'No', label: 'No'},
-    { value: 'TBA', label: 'TBA'}
-  ]
 
   const handleChange = (e) => {
     const { id, value } = e.target
@@ -172,7 +125,7 @@ const ProgramConfirmationData = ({ program }) => {
                 id='addOns'
                 value={formData.addOns}
                 onChange={handleChange}
-                options={addOnOptions}
+                options={options.addOnOptions}
               />
               <TextInput
                 label='Alerts'
@@ -194,7 +147,7 @@ const ProgramConfirmationData = ({ program }) => {
                 id='supplierProvided'
                 value={formData.supplierProvided}
                 onChange={handleChange}
-                options={supplierProvidedOptions}
+                options={options.supplierProvidedOptions}
               />
               <TextInput
                 label='If "Other Period", duration of period'
@@ -208,7 +161,7 @@ const ProgramConfirmationData = ({ program }) => {
                 id='nationalUnderwriter'
                 value={formData.nationalUnderwriter}
                 onChange={handleChange}
-                options={nationalUnderwriterOptions}
+                options={options.nationalUnderwriterOptions}
               />
               <h6 class='huh'>What is the national underwriters table?</h6>
               <BooleanInput

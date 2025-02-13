@@ -1,27 +1,22 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
-import InfoAccordion from '../../../forms/inputs/InfoAccordion'
 import TextInput from '../../../forms/inputs/TextInput'
 import TextAreaInput from '../../../forms/inputs/TextAreaInput'
 import BooleanInput from '../../../forms/inputs/BooleanInput'
 import SelectInput from '../../../forms/inputs/SelectInput'
-import DateInput from '../../../forms/inputs/DateInput'
 
-const MediaManager = ({ program }) => {
+const MediaManager = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [ formData, setFormData ] = useState({
-    mmPotential: '',
-    shortDescription: '',
-    longDescription: '',
-    descriptionsReviewed: false,
-    mmGenre: '',
 
-
-  })
   const mmPotenialOptions = [
     { value: 'Yes', label: 'Yes'},
     { value: 'No', label: 'No'},
     { value: 'Not determined', label: 'Not determined'}
+  ]
+
+  const mmDescriptionsReviewedOptions = [
+    { value: 'Reviewed', label: 'Reviewed'},
+    { value: 'Not Reviewed', label: 'Not Reviewed'},
   ]
 
   const handleChange = (e) => {
@@ -63,24 +58,25 @@ const MediaManager = ({ program }) => {
           <div className='mm-publishing-communications'>
             <h6>For Publishing/ Communications</h6>
             <TextAreaInput
-              label='Short Description'
+              label='MM Short Description'
               name='shortDescription'
-              value={formData.shortDescription}
+              value={formData.mmShortDesc}
               onChange={handleChange}
               placeholder='Enter a concise description'
             />
             <TextAreaInput
-              label='Long Description'
+              label='MM Long Description'
               name='longDescription'
-              value={formData.longDescription}
+              value={formData.mmLonglongDesc}
               onChange={handleChange}
               placeholder='Enter a detailed description'
             />
-            <BooleanInput
+            <SelectInput
               label='Descriptions reviewed?'
-              id='descriptionsReviewed'
-              value={formData.descriptionsReviewed}
+              id='MMDescriptionsReviewed'
+              value={formData.MMDescriptionsReviewed}
               onChange={handleChange}
+              options={mmDescriptionsReviewedOptions}
             />
             <TextInput
               label='MM Genre:'

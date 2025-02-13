@@ -43,6 +43,51 @@ export const ProgramsProvider = ({ children }) => {
     }
   }
 
+  const editProgram = async (formData, unid) => {
+    try {
+      if (!isAuthenticated || !validateToken()) {
+        console.info('Token is invalid or expired, refreshing token')
+        await getToken()
+      }
+  
+      if (isAuthenticated && token) {
+        // Construct the endpoint URL
+        const endpoint = process.env.REACT_APP_EDIT_ENDPOINT
+          .replace('{{UNID}}', unid) // Replace {{UNID}} with the actual UNID
+          .replace('{{SCOPE}}', 'programsscope') // Use 'programsscope' for programs
+          .replace('{{MODE}}', 'default')
+  
+        // Prepare the request body
+        const requestBody = {
+          ...formData, // Spread the formData into the request body
+          Form: 'Program', // Include the form type
+        }
+  
+        // Configure the axios request
+        const config = {
+          method: 'put', // Use PUT method
+          url: endpoint,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          data: JSON.stringify(requestBody), // Stringify the request body
+        }
+  
+        // Make the PUT request
+        const res = await axios(config)
+  
+        console.log('Program updated successfully:', res.data)
+        return res.data
+      } else {
+        throw new Error('Failed to authenticate')
+      }
+    } catch (error) {
+      console.error(`Error updating program: ${error.message}`)
+      throw error
+    }
+  }
+  
   const applyFilters = () => {
     const today = new Date()
     return programs.filter((program) => {
@@ -64,7 +109,13 @@ export const ProgramsProvider = ({ children }) => {
 
   return (
     <ProgramsContext.Provider
-      value={{ programs: applyFilters(), filters, setFilters, getProgram }}
+      value={{ 
+        programs: applyFilters(), 
+        filters, 
+        setFilters, 
+        getProgram,
+        editProgram
+      }}
     >
       {children}
     </ProgramsContext.Provider>

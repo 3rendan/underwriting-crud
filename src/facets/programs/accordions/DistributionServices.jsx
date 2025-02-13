@@ -3,34 +3,10 @@ import Accordion from 'react-bootstrap/Accordion'
 import TextInput from '../../../forms/inputs/TextInput'
 import CheckboxInput from '../../../forms/inputs/CheckboxInput'
 import SelectInput from '../../../forms/inputs/SelectInput'
+import { options } from '../../../forms/formData/formOptions'
 
-const DistributionServices = ({ program }) => {
+const DistributionServices = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [ formData, setFormData ] = useState({
-    format: '',
-    ratio: '',
-    nola: '',
-    sIXAvailability: '',
-    episodeNum: ''
-  })
-
-  const formatOptions = [
-    { value: 'Live', label: 'Live'},
-    { value: 'Letterbox', label: 'Letterbox'},
-    { value: 'DVI', label: 'DVI'},
-    { value: 'SAP', label: 'SAP'},
-    { value: 'Closed Captioned', label: 'Closed Captioned'},
-    { value: 'Not Close Captioned', label: 'Not Close Captioned'},
-    { value: 'Subtitled', label: 'Subtitled'},
-    { value: 'Ration', label: 'Ration'},
-    { value: '4:3 center safe', label: '4:3 center safe'}
-  ]
-
-  const sIXAvailabilityOptions = [
-    { value: 'Yes', label: 'Yes'},
-    { value: 'No', label: 'No'},
-    { value: 'Future', label: 'Future'},
-  ]
 
   const handleChange = (e) => {
     const { id, value } = e.target
@@ -58,7 +34,7 @@ const DistributionServices = ({ program }) => {
             id='format'
             value={formData.format}
             onChange={handleChange}
-            options={formatOptions}
+            options={options.formatOptions}
           />
           <TextInput
             label='Ratio'
@@ -71,7 +47,7 @@ const DistributionServices = ({ program }) => {
             id='sIXAvailability'
             value={formData.sIXAvailability}
             onChange={handleChange}
-            options={sIXAvailabilityOptions}
+            options={options.sIXAvailabilityOptions}
           />
           <TextInput
             label='Episode Number'
