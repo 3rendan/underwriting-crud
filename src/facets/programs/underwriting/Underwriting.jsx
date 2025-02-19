@@ -24,7 +24,7 @@ const Underwriting = ({ program }) => {
   const [underwriters, setUnderwriters] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
-  const [episodeOptions, setEpisodeOptions] = useState([])
+  const [episodeOptions, setEpisodeOptions] = useState(null) // Initialize as null
   const [formData, setFormData] = useState({
     underwriter: '',
     amount: '',
@@ -46,24 +46,24 @@ const Underwriting = ({ program }) => {
     fetchUnderwriters()
   }, [program.IDNumber, getUnderwriters, refreshKey])
 
-  // // Fetch episode options
-  // useEffect(() => {
-  //   // if (!program || !program.IDNumber) {
-  //   //   console.error('Program or program.IDNumber is undefined')
-  //   //   return
-  //   // }
+  // Fetch episode options
+  useEffect(() => {
+    if (!program || !program.IDNumber) {
+      console.error('Program or program.IDNumber is undefined')
+      return
+    }
 
-  //   // const fetchEpisodeOptions = async () => {
-  //   //   try {
-  //   //     const data = await getUnderwritingEpisodes(program.IDNumber)
-  //   //     setEpisodeOptions(data)
-  //   //   } catch (error) {
-  //   //     console.error('Error fetching underwriting episodes:', error)
-  //   //   }
-  //   // }
+    const fetchEpisodeOptions = async () => {
+      try {
+        const data = await getUnderwritingEpisodes(program.IDNumber)
+        setEpisodeOptions(data)
+      } catch (error) {
+        console.error('Error fetching underwriting episodes:', error)
+      }
+    }
 
-  //   // fetchEpisodeOptions()
-  // }, [program.IDNumber, getUnderwritingEpisodes])
+    fetchEpisodeOptions()
+  }, [program.IDNumber, getUnderwritingEpisodes])
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -73,20 +73,21 @@ const Underwriting = ({ program }) => {
         Underwriter: formData.underwriter,
         Amount: parseFloat(formData.amount),
         Notes: formData.notes,
-        Episodes: formData.episodes, // Include selected episodes
+        Episode: formData.episodes, // Pass the episodes array
         IDNumber: program.IDNumber,
         Title: program.Title,
+        DurationSeconds: formData.durationSeconds
       })
-
+  
       // Reset form fields and hide the modal
       setFormData({
         underwriter: '',
         amount: '',
         notes: '',
-        episodes: [],
+        episodes: []
       })
       setShowModal(false)
-
+  
       // Trigger a refetch
       setRefreshKey((prevKey) => prevKey + 1)
     } catch (error) {
@@ -96,10 +97,10 @@ const Underwriting = ({ program }) => {
 
   // Handle input changes for text and number fields
   const handleChange = (e) => {
-    const { id, value } = e.target
+    const { name, value } = e.target // Use 'name' instead of 'id'
     setFormData((prevData) => ({
       ...prevData,
-      [id]: value,
+      [name]: value,
     }))
   }
 
@@ -114,25 +115,29 @@ const Underwriting = ({ program }) => {
   const handleUpdateUnderwriter = async (updatedUnderwriter, unid) => {
     try {
       await editUnderwriter(updatedUnderwriter, unid)
+      // Trigger a refetch
       setRefreshKey((prevKey) => prevKey + 1)
     } catch (error) {
       console.error('Error updating underwriter:', error)
     }
   }
 
+  // Handle deleting an underwriter
   const handleDeleteUnderwriter = async (unid) => {
     try {
       await deleteUnderwriter(unid)
+      // Trigger a refetch
       setRefreshKey((prevKey) => prevKey + 1)
     } catch (error) {
       console.error('Error deleting underwriter:', error)
     }
   }
 
-  if (!underwriters || !episodeOptions) return 'loading...'
+  if (!underwriters || episodeOptions === null) return 'loading...'
 
   return (
     <Container className='underwriting-container'>
+      {/* Centered Button in a Row */}
       <Row className='justify-content-center mb-3'>
         <Col xs='auto'>
           <Button variant='success' onClick={() => setShowModal(true)}>
@@ -140,7 +145,8 @@ const Underwriting = ({ program }) => {
           </Button>
         </Col>
       </Row>
-     
+
+      {/* Modal for adding underwriter */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Add Underwriter</Modal.Title>
@@ -149,31 +155,41 @@ const Underwriting = ({ program }) => {
           <Form onSubmit={handleSubmit}>
             <TextInput
               label='Underwriter'
-              id='underwriter'
+              name='underwriter' // Use 'name' instead of 'id'
               value={formData.underwriter}
               onChange={handleChange}
               required
             />
             <IntegerInput
               label='Amount'
-              id='amount'
+              name='amount' // Use 'name' instead of 'id'
               value={formData.amount}
+              onChange={handleChange}
+              required
+            />
+            <TextInput
+              label='Duration'
+              name='durationSeconds' // Use 'name' instead of 'id'
+              value={formData.durationSeconds}
               onChange={handleChange}
               required
             />
             <TextAreaInput
               label='Notes'
-              id='notes'
+              name='notes' // Use 'name' instead of 'id'
               value={formData.notes}
               onChange={handleChange}
             />
-            {/* <CheckboxInput
-              label='Episode(s)'
-              id='episodes'
-              value={formData.episodes}
-              onChange={handleCheckboxChange}
-              options={episodeOptions}
-            /> */}
+            {episodeOptions !== 'Single Program' && (
+              <CheckboxInput
+                label='Episode(s)'
+                name='episodes' // Use 'name' instead of 'id'
+                value={formData.episodes}
+                onChange={handleCheckboxChange}
+                options={episodeOptions}
+                disableOnValue='Series' // Pass the value that should disable other options
+              />
+            )}
             <div className='text-center mt-3'>
               <Button variant='primary' type='submit'>
                 Submit
@@ -183,6 +199,7 @@ const Underwriting = ({ program }) => {
         </Modal.Body>
       </Modal>
 
+      {/* Table Headers */}
       <Row className='underwriter-table-headings text-center'>
         <Col><h6>Underwriter</h6></Col>
         <Col><h6>Amount</h6></Col>
@@ -192,6 +209,7 @@ const Underwriting = ({ program }) => {
         <Col><h6>Contract End</h6></Col>
       </Row>
 
+      {/* Underwriters List */}
       <div className='underwriter-table'>
         {underwriters.length === 0 ? (
           <h4 className='text-center'>This program presently has no underwriters</h4>
@@ -204,6 +222,7 @@ const Underwriting = ({ program }) => {
               title={program.Title}
               id={program.IDNumber}
               unid={underwriter['@unid']}
+              episodeOptions={episodeOptions} // Pass episodeOptions to Underwriter
               onUpdate={handleUpdateUnderwriter}
               onDelete={handleDeleteUnderwriter}
             />

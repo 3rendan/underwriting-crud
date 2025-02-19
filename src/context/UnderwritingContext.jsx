@@ -61,18 +61,18 @@ export const UnderwritingProvider = ({ children }) => {
         let result = []
   
         if (Array.isArray(res.data) && res.data.length > 0) {
-          // Extract the value of the '2' key or the 'label' property from each object
-          result = res.data.map((obj) => obj['2'] || obj.label || obj.value)
-        } else if (res.data && typeof res.data === 'object') {
-          // If res.data is a single object, extract the value of the '2' key or the 'label' property
-          result = [res.data['2'] || res.data.label || res.data.value]
-        } else {
-          // If res.data is empty or invalid, return ['Single Program']
-          result = ['Single Program']
-        }
+          // Extract the value of the '2' key from each object and format it as { value, label }
+          result = res.data.map((obj) => ({
+            value: obj['2'],
+            label: obj['2'],
+          }))
   
-        // Add 'Series' to the beginning of the array
-        result.unshift('Series')
+          // Add 'Series' to the beginning of the array
+          result.unshift({ value: 'Series', label: 'Series' })
+        } else {
+          // If res.data is empty or invalid, return 'Single Program'
+          return 'Single Program'
+        }
   
         // Return the processed array
         return result
@@ -99,7 +99,8 @@ export const UnderwritingProvider = ({ children }) => {
           .replace('{{UNID}}', unid) // Replace {{UNID}} with the actual UNID
           .replace('{{SCOPE}}', 'underwritingscope')
           .replace('{{MODE}}', 'default')
-  
+        console.log(underwriter)
+        
         // Prepare the request body
         const requestBody = {
           Underwriter: underwriter.Underwriter,
@@ -107,7 +108,9 @@ export const UnderwritingProvider = ({ children }) => {
           Notes: underwriter.Notes,
           Title: underwriter.Title, // Include Title
           IDNumber: underwriter.IDNumber, // Include IDNumber
-          Form: 'Underwriting'
+          Episode: underwriter.Episodes,
+          Form: 'Underwriting',
+          DurationSeconds: underwriter.DurationSeconds
       }
   
         // Configure the axios request
@@ -144,6 +147,8 @@ export const UnderwritingProvider = ({ children }) => {
       }
   
       if (isAuthenticated && token) {
+        console.log(params)
+
         // Prepare the request body
         const requestBody = {
           Title: params.Title,
@@ -151,8 +156,10 @@ export const UnderwritingProvider = ({ children }) => {
           ProgramService: 'APT',
           Amount: params.Amount,
           Notes: params.Notes,
-          Form: 'Underwriting', // Always set to 'Underwriting',
+          Form: 'Underwriting', // Always set to 'Underwriting'
           IDNumber: params.IDNumber,
+          Episode: params.Episode,
+          DurationSeconds: params.DurationSeconds
         }
   
         // Make the POST request
@@ -161,7 +168,7 @@ export const UnderwritingProvider = ({ children }) => {
           'underwritingscope'
         )
         const res = await axios.post(endpoint, requestBody, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` }
         })
   
         // Return the response for further handling

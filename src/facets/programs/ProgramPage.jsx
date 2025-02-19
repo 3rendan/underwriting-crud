@@ -105,7 +105,7 @@ const ProgramPage = () => {
               <ProgramInfo program={program} formData={formData} setFormData={setFormData} />
             </Container>
           </Tab>
-          {/* <Tab eventKey='underwriting' title='Underwriting'>
+          <Tab eventKey='underwriting' title='Underwriting'>
             <Container className='program-details-container py-3'>
               <Underwriting
                 underwriters={underwriters}
@@ -113,7 +113,7 @@ const ProgramPage = () => {
                 program={program}
               />
             </Container>
-          </Tab> */}
+          </Tab>
         </Tabs>
       </Container>
     </>

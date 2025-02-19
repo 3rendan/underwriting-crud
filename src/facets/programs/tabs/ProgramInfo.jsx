@@ -16,12 +16,13 @@ const ProgramInfo = ({program, formData, setFormData}) => {
       <ProgramOfferData program={program} formData={formData} setFormData={setFormData}/>
       <MediaManager program={program} formData={formData} setFormData={setFormData}/>  
       <Voting program={program} formData={formData} setFormData={setFormData}/>
-      <ProgramConfirmationData program={program} formData={formData} setFormData={setFormData}/>
       <DistributionServices program={program} formData={formData} setFormData={setFormData}/>
+      <ProgramConfirmationData program={program} formData={formData} setFormData={setFormData}/>
       <Communications program={program} formData={formData} setFormData={setFormData}/>
-      <Accounting program={program} formData={formData} setFormData={setFormData}/>  
+      <Accounting program={program} formData={formData} setFormData={setFormData}/>
     </div>
   )
 }
 
 export default ProgramInfo
+

@@ -9,13 +9,15 @@ import TextInput from '../../../forms/inputs/TextInput'
 import IntegerInput from '../../../forms/inputs/IntegerInput'
 import TextAreaInput from '../../../forms/inputs/TextAreaInput'
 import CurrencyInput from '../../../forms/inputs/CurrencyInput'
+import CheckboxInput from '../../../forms/inputs/CheckboxInput'
 
-const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDelete }) => {
+const Underwriter = ({ underwriter, isEvenRow, id, title, unid, episodeOptions, onUpdate, onDelete }) => {
   const [showModal, setShowModal] = useState(false)
   const [formData, setFormData] = useState({
     Underwriter: underwriter.Underwriter || '',
     Amount: underwriter.Amount || 0,
     Notes: underwriter.Notes || '',
+    Episodes: underwriter.Episodes || [], // Initialize episodes from the underwriter object
     IDNumber: id,
     Title: title,
     DurationSeconds: underwriter.DurationSeconds || '',
@@ -33,6 +35,7 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDele
       setAmountError('Amount is required and must be greater than 0.')
       return // Prevent form submission
     }
+
     try {
       await onUpdate(formData, unid) // Call the onUpdate function
       setShowModal(false)
@@ -62,6 +65,14 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDele
     setAmountError('') // Clear error when the user updates the Amount field
   }
 
+  // Handle checkbox changes for episodes
+  const handleCheckboxChange = (selectedEpisodes) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      Episodes: selectedEpisodes,
+    }))
+  }
+
   const handleDelete = async () => {
     try {
       await onDelete(unid) // Call the onDelete function
@@ -69,6 +80,7 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDele
       console.error('Error deleting underwriter:', error)
     }
   }
+
   if (underwriter === undefined || !title || !id) return 'loading...'
 
   return (
@@ -77,15 +89,15 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDele
         {/* Icons column (far left, outside the table) */}
         <Col xs='auto' className='icons-column'>
           <Pencil className='edit-icon' onClick={handleEditClick} />
-          <Trash className='delete-icon ms-2' onClick={handleDelete} /> 
+          <Trash className='delete-icon ms-2' onClick={handleDelete} />
         </Col>
-
+        {console.log(underwriter)}
         <Col className='mt-2'>{underwriter.Underwriter}</Col>
         <Col className='mt-2'>{underwriter.Amount}</Col>
-        {/* <Col className='mt-2'>{underwriter.Episodes}</Col>
+        <Col className='mt-2'>{underwriter.Episodes}</Col>
         <Col className='mt-2'>{underwriter.DurationSeconds}</Col>
         <Col className='mt-2'>{underwriter.ContractStartDate}</Col>
-        <Col className='mt-2'>{underwriter.ContractEndDate}</Col> */}
+        <Col className='mt-2'>{underwriter.ContractEndDate}</Col>
       </Row>
 
       {/* Edit Modal */}
@@ -118,6 +130,16 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDele
               onChange={handleInputChange}
               placeholder='Duration'
             />
+            {episodeOptions !== 'Single Program' && (
+              <CheckboxInput
+                label='Episode(s)'
+                id='episodes'
+                value={formData.Episodes}
+                onChange={handleCheckboxChange}
+                options={episodeOptions}
+                disableOnValue='Series' // Pass the value that should disable other options
+              />
+            )}
             <TextAreaInput
               label='Notes'
               id='Notes'
