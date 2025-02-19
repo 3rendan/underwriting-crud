@@ -42,7 +42,7 @@ const FilterRow = () => {
           Syndication
         </label>
       </Col>
-      <h2 class='huh'>What info on programs do you want to filter on?</h2>
+      <h2 className='huh'>What info on programs do you want to filter on?</h2>
     </Container>
   )
 }

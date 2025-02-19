@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { Pencil, Trash } from 'react-bootstrap-icons' // Import the Trash icon
+import { Pencil, Trash } from 'react-bootstrap-icons'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import TextInput from '../../../forms/inputs/TextInput'
+import IntegerInput from '../../../forms/inputs/IntegerInput'
 import TextAreaInput from '../../../forms/inputs/TextAreaInput'
 import CurrencyInput from '../../../forms/inputs/CurrencyInput'
 
@@ -17,13 +18,21 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDele
     Notes: underwriter.Notes || '',
     IDNumber: id,
     Title: title,
+    DurationSeconds: underwriter.DurationSeconds || '',
   })
+  const [amountError, setAmountError] = useState('') // State to track Amount validation error
 
   const handleEditClick = () => {
     setShowModal(true)
+    setAmountError('') // Clear any previous error when opening the modal
   }
 
   const handleSave = async () => {
+    // Validate the Amount field
+    if (!formData.Amount || formData.Amount <= 0) {
+      setAmountError('Amount is required and must be greater than 0.')
+      return // Prevent form submission
+    }
     try {
       await onUpdate(formData, unid) // Call the onUpdate function
       setShowModal(false)
@@ -50,6 +59,7 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDele
       ...prevData,
       [name]: value,
     }))
+    setAmountError('') // Clear error when the user updates the Amount field
   }
 
   const handleDelete = async () => {
@@ -59,20 +69,23 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDele
       console.error('Error deleting underwriter:', error)
     }
   }
-
   if (underwriter === undefined || !title || !id) return 'loading...'
 
   return (
     <>
       <Row className={`underwriter-row ${isEvenRow ? 'even-row' : 'odd-row'}`}>
-        <Col xs='auto' className='mt-2'>
-          <Pencil className='edit-icon' onClick={handleEditClick} /> {/* Edit icon */}
-          <Trash className='delete-icon ms-2' onClick={handleDelete} /> {/* Delete icon */}
+        {/* Icons column (far left, outside the table) */}
+        <Col xs='auto' className='icons-column'>
+          <Pencil className='edit-icon' onClick={handleEditClick} />
+          <Trash className='delete-icon ms-2' onClick={handleDelete} /> 
         </Col>
+
         <Col className='mt-2'>{underwriter.Underwriter}</Col>
         <Col className='mt-2'>{underwriter.Amount}</Col>
-        <Col className='mt-2'>{underwriter.Episodes}</Col>
-        <Col className='mt-2'>{underwriter.Notes}</Col>
+        {/* <Col className='mt-2'>{underwriter.Episodes}</Col>
+        <Col className='mt-2'>{underwriter.DurationSeconds}</Col>
+        <Col className='mt-2'>{underwriter.ContractStartDate}</Col>
+        <Col className='mt-2'>{underwriter.ContractEndDate}</Col> */}
       </Row>
 
       {/* Edit Modal */}
@@ -95,7 +108,15 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, onUpdate, onDele
               value={formData.Amount}
               onChange={handleCurrencyChange}
               placeholder='Amount'
-              className='single-row-form'
+              isRequired
+            />
+            {amountError && <p className='validation-error'>{amountError}</p>} {/* Display error message */}
+            <IntegerInput
+              label='Duration'
+              name='DurationSeconds'
+              value={formData.DurationSeconds}
+              onChange={handleInputChange}
+              placeholder='Duration'
             />
             <TextAreaInput
               label='Notes'

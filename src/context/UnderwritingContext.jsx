@@ -36,11 +36,55 @@ export const UnderwritingProvider = ({ children }) => {
       throw error
     }
   }
-
-  const getUnderwriter = async (unid) => {
-    console.log(unid)
+  
+  const getUnderwritingEpisodes = async (id) => {
+    // Check authentication and refresh token if necessary
+    if (!isAuthenticated || !validateToken()) {
+      console.info('Token is invalid or expired, refreshing token')
+      await getToken()
+    }
+  
+    // Proceed only if authenticated and token is available
+    if (isAuthenticated && token) {
+      const endpoint = process.env.REACT_APP_UW_EPISODES_ENDPOINT
+  
+      try {
+        // Make the API call
+        const res = await axios.get(
+          endpoint.replace('{{ID}}', id),
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+  
+        // Process the response data
+        let result = []
+  
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          // Extract the value of the '2' key or the 'label' property from each object
+          result = res.data.map((obj) => obj['2'] || obj.label || obj.value)
+        } else if (res.data && typeof res.data === 'object') {
+          // If res.data is a single object, extract the value of the '2' key or the 'label' property
+          result = [res.data['2'] || res.data.label || res.data.value]
+        } else {
+          // If res.data is empty or invalid, return ['Single Program']
+          result = ['Single Program']
+        }
+  
+        // Add 'Series' to the beginning of the array
+        result.unshift('Series')
+  
+        // Return the processed array
+        return result
+      } catch (error) {
+        console.error('Error fetching underwriting episodes:', error)
+        throw new Error('Failed to fetch underwriting episodes')
+      }
+    } else {
+      throw new Error('Failed to authenticate')
+    }
   }
-
+  
   const editUnderwriter = async (underwriter, unid) => {
     console.log(`UNID: ${unid}`)
     try {
@@ -64,7 +108,7 @@ export const UnderwritingProvider = ({ children }) => {
           Title: underwriter.Title, // Include Title
           IDNumber: underwriter.IDNumber, // Include IDNumber
           Form: 'Underwriting'
-        }
+      }
   
         // Configure the axios request
         const config = {
@@ -165,8 +209,8 @@ export const UnderwritingProvider = ({ children }) => {
   return (
     <UnderwritingContext.Provider
       value={{
-        getUnderwriter,
         getUnderwriters,
+        getUnderwritingEpisodes,
         createUnderwriter,
         editUnderwriter,
         deleteUnderwriter

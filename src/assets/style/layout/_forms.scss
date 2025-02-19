@@ -118,6 +118,18 @@
   gap: .5rem; /* Space between checkboxes */
 }
 
+.validation-error {
+  color: $red;
+  p {
+    text-align: center;
+  }
+}
+
+.required {
+  color: $red;
+}
+
+
 
 
 

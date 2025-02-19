@@ -5,15 +5,39 @@
 
 .underwriter-table-headings {
   background-color: #f8f9fa;
-  padding: 10px 0;
+  padding: .75rem 0;
   border-bottom: 2px solid #dee2e6;
+  .col {
+    padding-left: 0;
+  }
 }
 
 .underwriter-table {
   border: 1px solid #dee2e6;
   border-radius: 5px;
-  overflow: hidden;
+  text-align: center;
+  // overflow: hidden;
 }
+// * {
+//   border: 1px solid #dee2e6;
+
+// }
+
+.icons-column {
+  display: flex;
+  align-items: center;
+  gap: .5rem; /* Space between icons */
+  position: absolute;
+  left: -5rem; /* Adjust this value to move the icons further left or right */
+  padding-top: 1rem;
+}
+
+.underwriter-row {
+  position: relative; /* Ensure the icons column is positioned relative to the row */
+  padding: .75rem 0;
+  margin: 0;
+}
+
 
 .underwriter-row {
   padding: 10px 0;

@@ -26,7 +26,7 @@ const Voting = ({ formData, setFormData }) => {
         </Accordion.Header>
       <Accordion.Collapse eventKey="0">
         <Accordion.Body>
-          <h4 class='huh'>where does the table come from?</h4>
+          <h4 className='huh'>where does the table come from?</h4>
           <BooleanInput
             label='Border Stations Included'
             id='borderStationsIncluded'

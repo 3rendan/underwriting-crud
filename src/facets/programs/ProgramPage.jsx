@@ -88,7 +88,6 @@ const ProgramPage = () => {
       <h2 className='text-center mb-3'>{displayTitle(program.Title)}</h2>
       <Container>
         <ProgramTombstone program={program} />
-        {/* Save Button */}
         <div className='text-center mb-3'>
           <Button variant='primary' onClick={handleSave}>
             Save Changes
@@ -106,7 +105,7 @@ const ProgramPage = () => {
               <ProgramInfo program={program} formData={formData} setFormData={setFormData} />
             </Container>
           </Tab>
-          <Tab eventKey='underwriting' title='Underwriting'>
+          {/* <Tab eventKey='underwriting' title='Underwriting'>
             <Container className='program-details-container py-3'>
               <Underwriting
                 underwriters={underwriters}
@@ -114,7 +113,7 @@ const ProgramPage = () => {
                 program={program}
               />
             </Container>
-          </Tab>
+          </Tab> */}
         </Tabs>
       </Container>
     </>

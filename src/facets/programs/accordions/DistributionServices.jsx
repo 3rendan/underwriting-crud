@@ -28,7 +28,7 @@ const DistributionServices = ({ formData, setFormData }) => {
         </Accordion.Header>
       <Accordion.Collapse eventKey="0">
         <Accordion.Body>
-          <h6 class='huh'>What is the Notes table? Where is it sourced from?</h6>
+          <h6 className='huh'>What is the Notes table? Where is it sourced from?</h6>
           <CheckboxInput
             label='Format'
             id='format'

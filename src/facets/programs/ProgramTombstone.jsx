@@ -21,20 +21,20 @@ const ProgramTombstone = ({ program }) => {
         <p>
           <strong># of Episodes:</strong> {program.NumberOfEpisodes}
         </p>
-        {/* <p>
+        <p>
           <strong>Release date:</strong>{' '}
-          {formatProjectedReleaseDate(program.ProjectedReleaseDate)} 
+          {program.ProjectedReleaseDate} 
         </p>
         <p>
           <strong>Length of Program:</strong> {program.ProgramLength}
         </p>
         <p>
           <strong>Contract start date:</strong>{' '}
-          {formatContractDate(program.ContractStartDate)}
+          {program.ContractStartDate}
         </p>
         <p>
-          <strong>Contract end date:</strong> {formatContractDate(program.ContractEndDate)}
-        </p>*/}
+          <strong>Contract end date:</strong> {program.ContractEndDate}
+        </p>
         <p> 
           <strong>Broadcast Rights:</strong> {program.BroadcastRights}
         </p>
@@ -43,6 +43,9 @@ const ProgramTombstone = ({ program }) => {
         </p>
         <p>
           <strong>NOLA Code:</strong> {program.NolaCode}
+        </p>
+        <p>
+          <strong>EIDR:</strong> Get this in the program record
         </p>
       </div>
     </>

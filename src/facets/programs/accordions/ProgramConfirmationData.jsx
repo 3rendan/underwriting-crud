@@ -118,8 +118,8 @@ const ProgramConfirmationData = ({ formData, setFormData }) => {
                 onChange={handleChange}
               />
             </div>
-            <h6 class='mt-2'>Special Conditions</h6>
-            <div class='pcd-special-conditions'>
+            <h6 className='mt-2'>Special Conditions</h6>
+            <div className='pcd-special-conditions'>
               <SelectInput
                 label='Add-ons'
                 id='addOns'
@@ -134,8 +134,8 @@ const ProgramConfirmationData = ({ formData, setFormData }) => {
                 onChange={handleChange}
               />
             </div>
-            <h6 class='mt-2'>Micellaneous</h6>
-            <div class='pcd-miscellaneous'>
+            <h6 className='mt-2'>Micellaneous</h6>
+            <div className='pcd-miscellaneous'>
               <BooleanInput
                 label='Conversion costs borne by APT'
                 id='conversionCosts'
@@ -155,7 +155,7 @@ const ProgramConfirmationData = ({ formData, setFormData }) => {
                 value={formData.durationPeriod}
                 onChange={handleChange}
               />
-              <h6 class='huh'>Is APT revenue sharing it's own object?</h6>
+              <h6 className='huh'>Is APT revenue sharing it's own object?</h6>
               <SelectInput
                 label='National underwriter'
                 id='nationalUnderwriter'
@@ -163,7 +163,7 @@ const ProgramConfirmationData = ({ formData, setFormData }) => {
                 onChange={handleChange}
                 options={options.nationalUnderwriterOptions}
               />
-              <h6 class='huh'>What is the national underwriters table?</h6>
+              <h6 className='huh'>What is the national underwriters table?</h6>
               <BooleanInput
                 label='Local underwriting permitted'
                 id='localUnderwriting'

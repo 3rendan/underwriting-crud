@@ -1,35 +1,32 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 
-const CurrencyInput = ({ label, name, value, onChange, placeholder, error, isRequired }) => {
+const IntegerInput = ({ label, name, value, onChange, placeholder, error, isRequired }) => {
   const handleChange = (e) => {
     const { value } = e.target
 
     // Remove all non-numeric characters
     const numericValue = value.replace(/[^0-9]/g, '')
 
-    // Ensure the value is a whole number (no decimal places)
-    const wholeNumberValue = numericValue === '' ? '' : parseInt(numericValue, 10)
+    // Ensure the value is an integer (or empty string)
+    const integerValue = numericValue === '' ? '' : parseInt(numericValue, 10)
 
     // Pass the validated value to the parent component
-    onChange({ target: { name, value: wholeNumberValue } })
+    onChange({ target: { name, value: integerValue } })
   }
-
-  // Format the value as a whole number US dollar value
-  const formattedValue = value ? `$${parseInt(value, 10).toLocaleString('en-US')}` : ''
 
   return (
     <Form.Group controlId={name} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
       {label && (
         <Form.Label style={{ flex: '0 0 3rem', marginRight: '10px' }}>
           {label}
-          {isRequired && <span className='required'> *</span>}
+          {isRequired && <span className='text-danger'> *</span>}
         </Form.Label>
       )}
       <Form.Control
         type='text' // Use 'text' to allow formatting
         name={name}
-        value={formattedValue}
+        value={value || ''}
         onChange={handleChange}
         placeholder={placeholder}
         isInvalid={!!error}
@@ -40,4 +37,4 @@ const CurrencyInput = ({ label, name, value, onChange, placeholder, error, isReq
   )
 }
 
-export default CurrencyInput
+export default IntegerInput
