@@ -1,4 +1,4 @@
-import { parse, format } from 'date-fns'
+import { parse, parseISO, format } from 'date-fns'
 
 export const formattedCurrencyNumber = (number) => {
   // Convert the input to a number if it's a string
@@ -51,16 +51,31 @@ export const displayTitle = (str) => {
   return trimmedStr
 }
 
-export const formatProjectedReleaseDate = (dateString) => {
-  // Parse the date string (e.g., 'Saturday, October 26, 2019 (RAPID)')
-  const date = parse(dateString, "EEEE, MMMM dd, yyyy '(RAPID)'", new Date())
-  // Format the date as 'Day, Month DD, YYYY'
-  return format(date, 'EEEE, MMMM dd, yyyy')
+export const formatDateString = (dateString) => {
+  try {
+    // Parse the date string (e.g., 'July 23, 2023')
+    const date = parse(dateString, 'MMMM d, yyyy', new Date())
+
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      return 'Invalid Date' // or return an empty string or placeholder
+    }
+
+    // Format the date as 'MM/dd/yyyy'
+    return format(date, 'MM/dd/yyyy')
+  } catch (error) {
+    console.error('Error formatting date:', error)
+    return 'Invalid Date' // or return an empty string or placeholder
+  }
 }
 
+
 export const formatContractDate = (dateString) => {
-  // Parse the date string (e.g., '2025-10-25')
-  const date = parse(dateString, 'yyyy-MM-dd', new Date())
-  // Format the date as 'Day, Month DD, YYYY'
-  return format(date, 'EEEE, MMMM dd, yyyy')
+  if (!dateString || typeof dateString !== 'string') {
+    return ''
+  }
+  // Parse the date string (e.g., '2025-01-03' or '2025-01-03T00:00:00-05:00')
+  const date = parseISO(dateString)
+  // Format the date as 'MM/DD/YYYY'
+  return format(date, 'MM/dd/yyyy')
 }

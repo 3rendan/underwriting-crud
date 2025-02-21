@@ -158,8 +158,10 @@ export const UnderwritingProvider = ({ children }) => {
           Notes: params.Notes,
           Form: 'Underwriting', // Always set to 'Underwriting'
           IDNumber: params.IDNumber,
-          Episode: params.Episode,
-          DurationSeconds: params.DurationSeconds
+          Episode: params.Episodes,
+          DurationSeconds: params.DurationSeconds,
+          ContractStartDate: params.ContractStartDate,
+          ContractEndDate: params.ContractEndDate
         }
   
         // Make the POST request

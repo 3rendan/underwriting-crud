@@ -105,6 +105,7 @@ const ProgramPage = () => {
               <ProgramInfo program={program} formData={formData} setFormData={setFormData} />
             </Container>
           </Tab>
+          {console.log(program)}
           <Tab eventKey='underwriting' title='Underwriting'>
             <Container className='program-details-container py-3'>
               <Underwriting

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Underwriter from './Underwriter'
 import TextInput from '../../../forms/inputs/TextInput'
 import TextAreaInput from '../../../forms/inputs/TextAreaInput'
 import IntegerInput from '../../../forms/inputs/IntegerInput'
 import CheckboxInput from '../../../forms/inputs/CheckboxInput'
+import DateInput from '../../../forms/inputs/DateInput'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -24,13 +26,18 @@ const Underwriting = ({ program }) => {
   const [underwriters, setUnderwriters] = useState([])
   const [showModal, setShowModal] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
-  const [episodeOptions, setEpisodeOptions] = useState(null) // Initialize as null
+  const [episodeOptions, setEpisodeOptions] = useState([])
   const [formData, setFormData] = useState({
     underwriter: '',
     amount: '',
     notes: '',
-    episodes: [], // Store selected episodes as an array
+    episodes: [],
+    duration: '',
+    uwStartDate: '', // Add uwStartDate to formData
+    uwEndDate: '', // Add uwEndDate to formData
   })
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [underwriterToDelete, setUnderwriterToDelete] = useState(null)
 
   // Fetch underwriters on component mount or when refreshKey changes
   useEffect(() => {
@@ -73,21 +80,26 @@ const Underwriting = ({ program }) => {
         Underwriter: formData.underwriter,
         Amount: parseFloat(formData.amount),
         Notes: formData.notes,
-        Episode: formData.episodes, // Pass the episodes array
+        Episodes: formData.episodes,
         IDNumber: program.IDNumber,
         Title: program.Title,
-        DurationSeconds: formData.durationSeconds
+        DurationSeconds: formData.duration,
+        ContractStartDate: formData.uwStartDate,
+        ContractEndDate: formData.uwEndDate,
       })
-  
+
       // Reset form fields and hide the modal
       setFormData({
         underwriter: '',
         amount: '',
         notes: '',
-        episodes: []
+        episodes: [],
+        duration: '',
+        uwStartDate: '',
+        uwEndDate: '',
       })
       setShowModal(false)
-  
+
       // Trigger a refetch
       setRefreshKey((prevKey) => prevKey + 1)
     } catch (error) {
@@ -95,12 +107,12 @@ const Underwriting = ({ program }) => {
     }
   }
 
-  // Handle input changes for text and number fields
+  // Handle input changes for text, number, and date fields
   const handleChange = (e) => {
-    const { name, value } = e.target // Use 'name' instead of 'id'
+    const { id, value } = e.target
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [id]: value,
     }))
   }
 
@@ -112,28 +124,36 @@ const Underwriting = ({ program }) => {
     }))
   }
 
+  // Handle delete confirmation
+  const handleDeleteUnderwriter = (unid) => {
+    setUnderwriterToDelete(unid)
+    setShowDeleteModal(true)
+  }
+
+  const confirmDelete = async () => {
+    if (!underwriterToDelete) return
+
+    try {
+      await deleteUnderwriter(underwriterToDelete)
+      setRefreshKey((prevKey) => prevKey + 1)
+    } catch (error) {
+      console.error('Error deleting underwriter:', error)
+    } finally {
+      setShowDeleteModal(false)
+      setUnderwriterToDelete(null)
+    }
+  }
+
   const handleUpdateUnderwriter = async (updatedUnderwriter, unid) => {
     try {
       await editUnderwriter(updatedUnderwriter, unid)
-      // Trigger a refetch
       setRefreshKey((prevKey) => prevKey + 1)
     } catch (error) {
       console.error('Error updating underwriter:', error)
     }
   }
 
-  // Handle deleting an underwriter
-  const handleDeleteUnderwriter = async (unid) => {
-    try {
-      await deleteUnderwriter(unid)
-      // Trigger a refetch
-      setRefreshKey((prevKey) => prevKey + 1)
-    } catch (error) {
-      console.error('Error deleting underwriter:', error)
-    }
-  }
-
-  if (!underwriters || episodeOptions === null) return 'loading...'
+  if (!underwriters || !episodeOptions) return 'loading...'
 
   return (
     <Container className='underwriting-container'>
@@ -155,41 +175,53 @@ const Underwriting = ({ program }) => {
           <Form onSubmit={handleSubmit}>
             <TextInput
               label='Underwriter'
-              name='underwriter' // Use 'name' instead of 'id'
+              id='underwriter'
+              name='underwriter'
               value={formData.underwriter}
               onChange={handleChange}
               required
             />
             <IntegerInput
               label='Amount'
-              name='amount' // Use 'name' instead of 'id'
+              id='amount'
+              name='amount'
               value={formData.amount}
-              onChange={handleChange}
-              required
-            />
-            <TextInput
-              label='Duration'
-              name='durationSeconds' // Use 'name' instead of 'id'
-              value={formData.durationSeconds}
               onChange={handleChange}
               required
             />
             <TextAreaInput
               label='Notes'
-              name='notes' // Use 'name' instead of 'id'
+              id='notes'
+              name='notes'
               value={formData.notes}
               onChange={handleChange}
             />
-            {episodeOptions !== 'Single Program' && (
-              <CheckboxInput
-                label='Episode(s)'
-                name='episodes' // Use 'name' instead of 'id'
-                value={formData.episodes}
-                onChange={handleCheckboxChange}
-                options={episodeOptions}
-                disableOnValue='Series' // Pass the value that should disable other options
-              />
-            )}
+            <IntegerInput
+              label='Duration'
+              name='duration'
+              value={formData.duration}
+              onChange={handleChange}
+              placeholder='Duration'
+            />
+            <CheckboxInput
+              label='Episode(s)'
+              id='episodes'
+              value={formData.episodes}
+              onChange={handleCheckboxChange}
+              options={episodeOptions}
+            />
+            <DateInput
+              label='UW start date'
+              id='uwStartDate'
+              value={formData.uwStartDate}
+              onChange={handleChange}
+            />
+            <DateInput
+              label='UW end date'
+              id='uwEndDate'
+              value={formData.uwEndDate}
+              onChange={handleChange}
+            />
             <div className='text-center mt-3'>
               <Button variant='primary' type='submit'>
                 Submit
@@ -197,6 +229,24 @@ const Underwriting = ({ program }) => {
             </div>
           </Form>
         </Modal.Body>
+      </Modal>
+
+      {/* Confirmation Modal for Delete */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this underwriter? This action cannot be undone.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={() => setShowDeleteModal(false)}>
+            Cancel
+          </Button>
+          <Button variant='danger' onClick={confirmDelete}>
+            Confirm Delete
+          </Button>
+        </Modal.Footer>
       </Modal>
 
       {/* Table Headers */}
@@ -222,9 +272,9 @@ const Underwriting = ({ program }) => {
               title={program.Title}
               id={program.IDNumber}
               unid={underwriter['@unid']}
-              episodeOptions={episodeOptions} // Pass episodeOptions to Underwriter
               onUpdate={handleUpdateUnderwriter}
               onDelete={handleDeleteUnderwriter}
+              episodeOptions={episodeOptions}
             />
           ))
         )}
