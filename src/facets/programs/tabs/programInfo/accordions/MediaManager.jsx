@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
-import TextInput from '../../../forms/inputs/TextInput'
-import TextAreaInput from '../../../forms/inputs/TextAreaInput'
-import BooleanInput from '../../../forms/inputs/BooleanInput'
-import SelectInput from '../../../forms/inputs/SelectInput'
+import TextInput from '../../../../../forms/inputs/TextInput'
+import TextAreaInput from '../../../../../forms/inputs/TextAreaInput'
+import BooleanInput from '../../../../../forms/inputs/BooleanInput'
+import SelectInput from '../../../../../forms/inputs/SelectInput'
 
 const MediaManager = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)

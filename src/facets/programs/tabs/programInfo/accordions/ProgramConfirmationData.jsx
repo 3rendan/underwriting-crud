@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
-import DateInput from '../../../forms/inputs/DateInput'
-import BooleanInput from '../../../forms/inputs/BooleanInput'
-import TextInput from '../../../forms/inputs/TextInput'
-import SelectInput from '../../../forms/inputs/SelectInput'
-import { options } from '../../../forms/formData/formOptions'
+import DateInput from '../../../../../forms/inputs/DateInput'
+import BooleanInput from '../../../../../forms/inputs/BooleanInput'
+import TextInput from '../../../../../forms/inputs/TextInput'
+import SelectInput from '../../../../../forms/inputs/SelectInput'
+import { options } from '../../../../../forms/formData/formOptions'
 
 const ProgramConfirmationData = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)

@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Underwriter from './Underwriter'
-import TextInput from '../../../forms/inputs/TextInput'
-import TextAreaInput from '../../../forms/inputs/TextAreaInput'
-import IntegerInput from '../../../forms/inputs/IntegerInput'
-import CheckboxInput from '../../../forms/inputs/CheckboxInput'
-import DateInput from '../../../forms/inputs/DateInput'
+import TextInput from '../../../../forms/inputs/TextInput'
+import TextAreaInput from '../../../../forms/inputs/TextAreaInput'
+import CurrencyInput from '../../../../forms/inputs/CurrencyInput'
+import IntegerInput from '../../../../forms/inputs/IntegerInput'
+import CheckboxInput from '../../../../forms/inputs/CheckboxInput'
+import DateInput from '../../../../forms/inputs/DateInput'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
-import { useUnderwriting } from '../../../context/UnderwritingContext'
+import { useUnderwriting } from '../../../../context/UnderwritingContext'
 
 const Underwriting = ({ program }) => {
   const {
@@ -27,6 +28,7 @@ const Underwriting = ({ program }) => {
   const [showModal, setShowModal] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
   const [episodeOptions, setEpisodeOptions] = useState([])
+  const [amountError, setAmountError] = useState('') // State to track Amount validation error
   const [formData, setFormData] = useState({
     underwriter: '',
     amount: '',
@@ -72,18 +74,28 @@ const Underwriting = ({ program }) => {
     fetchEpisodeOptions()
   }, [program.IDNumber, getUnderwritingEpisodes])
 
+  const handleCurrencyChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+    setAmountError('') // Clear error when the user updates the Amount field
+  }
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+      const episodesValue = episodeOptions === 'Single Program' ? 'Single Program' : formData.episodes
       await createUnderwriter({
         Underwriter: formData.underwriter,
-        Amount: parseFloat(formData.amount),
+        Amount: formData.Amount,
         Notes: formData.notes,
-        Episodes: formData.episodes,
+        Episodes: episodesValue,
         IDNumber: program.IDNumber,
         Title: program.Title,
-        DurationSeconds: formData.duration,
+        DurationSeconds: formData.DurationSeconds,
         ContractStartDate: formData.uwStartDate,
         ContractEndDate: formData.uwEndDate,
       })
@@ -144,6 +156,14 @@ const Underwriting = ({ program }) => {
     }
   }
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+  }
+
   const handleUpdateUnderwriter = async (updatedUnderwriter, unid) => {
     try {
       await editUnderwriter(updatedUnderwriter, unid)
@@ -181,13 +201,13 @@ const Underwriting = ({ program }) => {
               onChange={handleChange}
               required
             />
-            <IntegerInput
+            <CurrencyInput
               label='Amount'
-              id='amount'
-              name='amount'
-              value={formData.amount}
-              onChange={handleChange}
-              required
+              name='Amount'
+              value={formData.Amount}
+              onChange={handleCurrencyChange}
+              placeholder='Amount'
+              isRequired
             />
             <TextAreaInput
               label='Notes'
@@ -198,30 +218,21 @@ const Underwriting = ({ program }) => {
             />
             <IntegerInput
               label='Duration'
-              name='duration'
-              value={formData.duration}
-              onChange={handleChange}
+              name='DurationSeconds'
+              value={formData.DurationSeconds}
+              onChange={handleInputChange}
               placeholder='Duration'
             />
-            <CheckboxInput
-              label='Episode(s)'
-              id='episodes'
-              value={formData.episodes}
-              onChange={handleCheckboxChange}
-              options={episodeOptions}
-            />
-            <DateInput
-              label='UW start date'
-              id='uwStartDate'
-              value={formData.uwStartDate}
-              onChange={handleChange}
-            />
-            <DateInput
-              label='UW end date'
-              id='uwEndDate'
-              value={formData.uwEndDate}
-              onChange={handleChange}
-            />
+            {console.log(episodeOptions)}
+            { episodeOptions !== 'Single Program' &&
+              <CheckboxInput
+                label='Episode(s)'
+                id='episodes'
+                value={formData.episodes}
+                onChange={handleCheckboxChange}
+                options={episodeOptions}
+              />
+            }
             <div className='text-center mt-3'>
               <Button variant='primary' type='submit'>
                 Submit
@@ -255,8 +266,6 @@ const Underwriting = ({ program }) => {
         <Col><h6>Amount</h6></Col>
         <Col><h6>Episodes</h6></Col>
         <Col><h6>Duration</h6></Col>
-        <Col><h6>Contract Start</h6></Col>
-        <Col><h6>Contract End</h6></Col>
       </Row>
 
       {/* Underwriters List */}

@@ -1,6 +1,13 @@
+.program-page-container {
+  max-width: 1200px; /* Adjust this value to make the container narrower */
+  padding-left: 15px; /* Adjust left padding */
+  padding-right: 15px; /* Adjust right padding */
+  margin: 0 auto; /* Center the container */
+}
+
 .tombstone {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   margin: .15rem;
   background-color: $lemon;
   color: $blue;

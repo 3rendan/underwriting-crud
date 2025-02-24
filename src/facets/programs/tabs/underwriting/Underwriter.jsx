@@ -5,12 +5,12 @@ import { Pencil, Trash } from 'react-bootstrap-icons'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import TextInput from '../../../forms/inputs/TextInput'
-import IntegerInput from '../../../forms/inputs/IntegerInput'
-import TextAreaInput from '../../../forms/inputs/TextAreaInput'
-import CurrencyInput from '../../../forms/inputs/CurrencyInput'
-import CheckboxInput from '../../../forms/inputs/CheckboxInput'
-import { formatContractDate } from '../../../utilities/helpers'
+import TextInput from '../../../../forms/inputs/TextInput'
+import IntegerInput from '../../../../forms/inputs/IntegerInput'
+import TextAreaInput from '../../../../forms/inputs/TextAreaInput'
+import CurrencyInput from '../../../../forms/inputs/CurrencyInput'
+import CheckboxInput from '../../../../forms/inputs/CheckboxInput'
+import { formatContractDate } from '../../../../utilities/helpers'
 
 const Underwriter = ({ underwriter, isEvenRow, id, title, unid, episodeOptions, onUpdate, onDelete }) => {
   const [showModal, setShowModal] = useState(false)
@@ -97,8 +97,6 @@ const Underwriter = ({ underwriter, isEvenRow, id, title, unid, episodeOptions, 
         <Col className='mt-2'>{underwriter.Amount}</Col>
         <Col className='mt-2'>{underwriter.Episodes}</Col>
         <Col className='mt-2'>{underwriter.DurationSeconds}</Col>
-        <Col className='mt-2'>{underwriter.ContractStartDate ? formatContractDate(underwriter.ContractStartDate) : ''}</Col>
-        <Col className='mt-2'>{underwriter.ContractEndDate ? formatContractDate(underwriter.ContractEndDate) : ''}</Col>
       </Row>
 
       {/* Edit Modal */}

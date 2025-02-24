@@ -9,13 +9,11 @@ const RootLayout = () => {
   return (
     <div className='root-layout'>
       <a href='#main-content' className='skip-link'>Skip to main content</a>
-      <div>
+      <div className='sticky-top'>
         <Header />
       </div>
       <main id='main-content' tabIndex='-1'>
-        <Container>
-          <Outlet />
-        </Container>
+        <Outlet />
       </main>
       <Footer />
     </div>

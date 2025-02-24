@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Accordion from 'react-bootstrap/Accordion'
-import TextInput from '../../../forms/inputs/TextInput'
-import ContactFormInput from '../../../forms/inputs/ContactFormInput'
+import TextInput from '../../../../../forms/inputs/TextInput'
+import ContactFormInput from '../../../../../forms/inputs/ContactFormInput'
 
 const SupplierContacts = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)

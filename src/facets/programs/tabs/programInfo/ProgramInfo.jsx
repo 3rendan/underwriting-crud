@@ -1,12 +1,12 @@
 import React from 'react'
-import MediaManager from '../accordions/MediaManager'
-import ProgramOfferData from '../accordions/ProgramOfferData'
-import SupplierContacts from '../accordions/SupplierContacts'
-import Voting from '../accordions/Voting'
-import ProgramConfirmationData from '../accordions/ProgramConfirmationData'
-import Communications from '../accordions/Communications'
-import DistributionServices from '../accordions/DistributionServices'
-import Accounting from '../accordions/Accounting'
+import MediaManager from './accordions/MediaManager'
+import ProgramOfferData from './accordions/ProgramOfferData'
+import SupplierContacts from './accordions/SupplierContacts'
+import Voting from './accordions/Voting'
+import ProgramConfirmationData from './accordions/ProgramConfirmationData'
+import Communications from './accordions/Communications'
+import DistributionServices from './accordions/DistributionServices'
+import Accounting from './accordions/Accounting'
 
 const ProgramInfo = ({program, formData, setFormData}) => {
 

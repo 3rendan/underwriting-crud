@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
-import TextInput from '../../../forms/inputs/TextInput'
-import BooleanInput from '../../../forms/inputs/BooleanInput'
-import SelectInput from '../../../forms/inputs/SelectInput'
-import DateInput from '../../../forms/inputs/DateInput'
-import { options } from '../../../forms/formData/formOptions'
+import TextInput from '../../../../../forms/inputs/TextInput'
+import BooleanInput from '../../../../../forms/inputs/BooleanInput'
+import SelectInput from '../../../../../forms/inputs/SelectInput'
+import DateInput from '../../../../../forms/inputs/DateInput'
+import { options } from '../../../../../forms/formData/formOptions'
 import { Row } from 'react-bootstrap'
 
 const ProgramOfferData = ({ formData, setFormData }) => {

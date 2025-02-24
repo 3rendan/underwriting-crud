@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
-import BooleanInput from '../../../forms/inputs/BooleanInput'
+import BooleanInput from '../../../../../forms/inputs/BooleanInput'
 
 const Voting = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)

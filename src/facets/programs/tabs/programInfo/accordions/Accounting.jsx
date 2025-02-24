@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
-import TextInput from '../../../forms/inputs/TextInput'
-import CheckboxInput from '../../../forms/inputs/CheckboxInput'
-import BooleanInput from '../../../forms/inputs/BooleanInput'
+import TextInput from '../../../../../forms/inputs/TextInput'
+import CheckboxInput from '../../../../../forms/inputs/CheckboxInput'
+import BooleanInput from '../../../../../forms/inputs/BooleanInput'
 
 
 const Accounting = ({ formData, setFormData }) => {

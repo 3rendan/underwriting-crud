@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
-import TextInput from '../../../forms/inputs/TextInput'
-import CheckboxInput from '../../../forms/inputs/CheckboxInput'
-import SelectInput from '../../../forms/inputs/SelectInput'
-import { options } from '../../../forms/formData/formOptions'
+import TextInput from '../../../../../forms/inputs/TextInput'
+import CheckboxInput from '../../../../../forms/inputs/CheckboxInput'
+import SelectInput from '../../../../../forms/inputs/SelectInput'
+import { options } from '../../../../../forms/formData/formOptions'
 
 const DistributionServices = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)

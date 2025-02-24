@@ -7,8 +7,10 @@ import Button from 'react-bootstrap/Button'
 import ProgramsContext from '../../context/ProgramsContext'
 import UnderwritingContext from '../../context/UnderwritingContext'
 import ProgramTombstone from './ProgramTombstone'
-import Underwriting from './underwriting/Underwriting'
-import ProgramInfo from './tabs/ProgramInfo'
+import Underwriting from './tabs/underwriting/Underwriting'
+import ProgramInfo from './tabs/programInfo/ProgramInfo'
+import AssociatedDocuments from './tabs/associatedDocuments/AssociatedDocuments'
+import Pricing from './tabs/pricing/Pricing'
 import MySpinner from '../../utilities/MySpinner'
 import { displayTitle } from '../../utilities/helpers'
 import { initializeFormData } from '../../forms/formData/programFormDataUtils'
@@ -84,16 +86,11 @@ const ProgramPage = () => {
   if (!program || !underwriters) return <MySpinner />
 
   return (
-    <>
-      <h2 className='text-center mb-3'>{displayTitle(program.Title)}</h2>
-      <Container>
+    <Container className='program-page-container'>
+      <div class='sticky-top' style={{top: '15vh'}}>
         <ProgramTombstone program={program} />
-        <div className='text-center mb-3'>
-          <Button variant='primary' onClick={handleSave}>
-            Save Changes
-          </Button>
-        </div>
-        {/* Tabs with full width */}
+      </div>
+      <Container>
         <Tabs
           defaultActiveKey='programInfo'
           id='program-details-tabs'
@@ -105,7 +102,12 @@ const ProgramPage = () => {
               <ProgramInfo program={program} formData={formData} setFormData={setFormData} />
             </Container>
           </Tab>
-          {console.log(program)}
+          <Tab eventKey='associatedDocuments' title='Associated Documents'>
+            <AssociatedDocuments program={program} />
+          </Tab>
+          <Tab eventKey='pricing' title='Pricing'>
+            <Pricing program={program} />
+          </Tab>
           <Tab eventKey='underwriting' title='Underwriting'>
             <Container className='program-details-container py-3'>
               <Underwriting
@@ -117,7 +119,8 @@ const ProgramPage = () => {
           </Tab>
         </Tabs>
       </Container>
-    </>
+    </Container>
+
   )
 }
 

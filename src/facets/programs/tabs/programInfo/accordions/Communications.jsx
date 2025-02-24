@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Accordion from 'react-bootstrap/Accordion'
-import SimpleContactFormInput from '../../../forms/inputs/SimpleContactFormInput'
-import SocialContactFormInput from '../../../forms/inputs/SocialContactFormInput'
-import TextAreaInput from '../../../forms/inputs/TextAreaInput'
-import TextInput from '../../../forms/inputs/TextInput'
+import SimpleContactFormInput from '../../../../../forms/inputs/SimpleContactFormInput'
+import SocialContactFormInput from '../../../../../forms/inputs/SocialContactFormInput'
+import TextAreaInput from '../../../../../forms/inputs/TextAreaInput'
+import TextInput from '../../../../../forms/inputs/TextInput'
 
 const Communications = ({ formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false)
