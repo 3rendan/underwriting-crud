@@ -1,6 +1,8 @@
+@use '../layout/variables' as vars;
+
 /* Custom CSS for the accordion */
 .internal-accordion .internal-accordion-item .accordion-header {
-  background-color: #007bff; /* Change to your desired color */
+  background-color: vars.$blue; /* Change to your desired color */
   color: white; /* Change text color if needed */
   border-radius: 5px; /* Optional: Add rounded corners */
   margin-bottom: 5px; /* Optional: Add spacing between items */
@@ -13,6 +15,6 @@
 }
 
 .internal-accordion .internal-accordion-item .accordion-button:not(.collapsed) {
-  background-color: #0056b3; /* Change color when expanded */
+  background-color: vars.$blue; /* Change color when expanded */
   color: white; /* Change text color when expanded */
 }

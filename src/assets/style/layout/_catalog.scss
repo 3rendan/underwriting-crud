@@ -1,3 +1,5 @@
+@use '../layout/variables' as vars;
+
 .program-page-container {
   max-width: 1200px; /* Adjust this value to make the container narrower */
   padding-left: 15px; /* Adjust left padding */
@@ -9,29 +11,29 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: .15rem;
-  background-color: $lemon;
-  color: $blue;
+  background-color: vars.$lemon;
+  color: vars.$blue;
   // padding: .75rem;
   p {
-    border-radius: $border-radius;
+    border-radius: vars.$border-radius;
     padding: .25rem 1.5rem;
-    border: solid $blue 1px;
+    border: solid vars.$blue 1px;
     margin-bottom: 0;
   }
 }
 
 /* Tab styles */
 .custom-tabs .nav-link {
-  background-color: $blue; /* Default background */
-  color: $lemon; /* Default text color */
+  background-color: vars.$blue; /* Default background */
+  color: vars.$lemon; /* Default text color */
   font-weight: bold;
   transition: all 0.3s ease-in-out;
 }
 
 .custom-tabs .nav-link.active {
-  background-color: $lemon; /* Active background */
-  color: $blue; /* Active text color */
-  border: 1px solid $blue; /* Add a border to active tabs for clarity */
+  background-color: vars.$lemon; /* Active background */
+  color: vars.$blue; /* Active text color */
+  border: 1px solid vars.$blue; /* Add a border to active tabs for clarity */
   border-bottom: none; /* Seamless integration with content */
 }
 

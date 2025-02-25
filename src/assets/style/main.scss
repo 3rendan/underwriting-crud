@@ -1,13 +1,14 @@
 @charset "UTF-8";
 
-@import 'layout/variables';
+// Load variables and use them with a namespace
+@use './layout/variables' as vars;
 
-@import 'facets/underwriting';
-
-@import 'layout/accordions',
-        'layout/cards',
-        'layout/catalog',
-        'layout/containers',
-        'layout/forms',
-        'layout/general',
-        'layout/header';
+// Load other partials
+@use './facets/underwriting';
+@use './layout/accordions';
+@use './layout/cards';
+@use './layout/catalog';
+@use './layout/containers';
+@use './layout/forms';
+@use './layout/general';
+@use './layout/header';

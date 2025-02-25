@@ -1,27 +1,24 @@
+@use '../layout/variables' as vars;
 /* Table Styling */
 .underwriting-container {
   padding: 20px;
 }
 
 .underwriter-table-headings {
-  background-color: #f8f9fa;
+  background-color: vars.$light-gray;
   padding: .75rem 0;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 2px solid vars.$gray;
   .col {
     padding-left: 0;
   }
 }
 
 .underwriter-table {
-  border: 1px solid #dee2e6;
+  border: 1px solid vars.$gray;
   border-radius: 5px;
   text-align: center;
   // overflow: hidden;
 }
-// * {
-//   border: 1px solid #dee2e6;
-
-// }
 
 .icons-column {
   display: flex;
@@ -49,7 +46,7 @@
 }
 
 .odd-row {
-  background-color: #f8f9fa; /* Light grey background */
+  background-color: vars.$light-gray; /* Light grey background */
 }
 
 .underwriter-row:hover {
@@ -63,11 +60,11 @@
 /* Edit Icon Styling */
 .edit-icon {
   cursor: pointer;
-  color: #6c757d; /* Grey color */
+  color: vars.$dark-gray; /* Grey color */
 }
 
 .edit-icon:hover {
-  color: #0d6efd; /* Blue color on hover */
+  color: vars.$blue; /* Blue color on hover */
 }
 
 /* Modal Styling */
@@ -76,8 +73,8 @@
 }
 
 .modal-header {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  background-color: vars.$light-gray;
+  border-bottom: 1px solid vars.$gray;
 }
 
 .modal-title {
@@ -85,5 +82,5 @@
 }
 
 .modal-footer {
-  border-top: 1px solid #dee2e6;
+  border-top: 1px solid vars.$gray;
 }

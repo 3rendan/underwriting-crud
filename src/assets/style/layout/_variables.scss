@@ -3,13 +3,12 @@ $lemon: #F2EFC7;
 $green: #C5D86D;
 $blue: #1A6DA4;
 $red: #E71D36;
-$orange:#F46036;
+$orange: #F46036;
+$gray: #dee2e6;
+$dark-gray: #6c757d;
+$light-gray: #f8f9fa;
 
 // FONTS
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital@0;1&family=Nunito:wght@800&family=Roboto&display=swap');
 $body-font: 'Roboto', sans-serif;
 $header-font: 'Nunito', sans-serif;
-
-body {
-  font-family: $body-font;
-}

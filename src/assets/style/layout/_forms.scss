@@ -1,3 +1,4 @@
+@use '../layout/variables' as vars;
 .filters {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -20,11 +21,11 @@
 }
 
 .text-yes {
-  color: #C5D86D;
+  color: vars.$green;
 }
 
 .text-no {
-  color: #E71D36;
+  color: vars.$red;
 }
 
 /* Custom switch colors */
@@ -38,7 +39,7 @@
 }
 
 .custom-switch.switch-yes .form-check-input {
-  background-color: green;
+  background-color: vars.$green;
 }
 
 .custom-switch .form-check-input::before {
@@ -70,7 +71,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   padding: 1rem 0;
-  border-bottom: solid $lemon 2px;
+  border-bottom: solid vars.$lemon 2px;
   label {
     width: 15vw;
   }
@@ -81,7 +82,7 @@
   }
   input {
     padding: .15rem;
-    border-radius: $border-radius;
+    border-radius: vars.$border-radius;
   }
   .row {
     width: 100vw;
@@ -99,7 +100,7 @@
 .pcd-current-pricing input {
   width: 100%; /* Ensure inputs take full width */
   padding: 0.15rem;
-  border-radius: 4px; /* Ensure $border-radius is defined or replace with a valid value */
+  border-radius: 4px; /* Ensure vars.$border-radius is defined or replace with a valid value */
 }
 
 .pcd-pricing-info-toc .row, .pcd-current-pricing .row {
@@ -119,14 +120,14 @@
 }
 
 .validation-error {
-  color: $red;
+  color: vars.$red;
   p {
     text-align: center;
   }
 }
 
 .required {
-  color: $red;
+  color: vars.$red;
 }
 
 
