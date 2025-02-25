@@ -1,10 +1,9 @@
 {
-  "IDNumber_Text": "33510",
+  "IDNumber_Text": "26833",
   "Underwriter": "Test Corp.",
   "Amount": "50000.0",
-  "ContractStartDate": "2019-10-25T23:00:00-05:00",
-  "ContractEndDate": "2025-10-24T23:00:00-05:00",
-  "Episodes": "Series",
-  "DurationSeconds": "0.0",
-  "Title": "100 DAYS, DRINKS, DISHES & DESTINATIONS"
+  "Episodes": "Single Program",
+  "DurationSeconds": "45",
+  "Notes": "For testing purposes only",
+  "Title": "7 WONDERS OF CHINA"
 }

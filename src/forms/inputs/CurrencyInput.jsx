@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 
-const CurrencyInput = ({ label, name, value, onChange, placeholder, error, isRequired }) => {
+const CurrencyInput = ({ label, name, value, onChange, placeholder, error, isRequired, id }) => {
   const handleChange = (e) => {
     const { value } = e.target
 
@@ -19,7 +19,7 @@ const CurrencyInput = ({ label, name, value, onChange, placeholder, error, isReq
   const formattedValue = value ? `$${parseInt(value, 10).toLocaleString('en-US')}` : ''
 
   return (
-    <Form.Group controlId={name} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+    <Form.Group controlId={name} style={{ display: 'flex', alignItems: 'center', width: '100%' }} id={id}>
       {label && (
         <Form.Label style={{ flex: '0 0 3rem', marginRight: '10px' }}>
           {label}

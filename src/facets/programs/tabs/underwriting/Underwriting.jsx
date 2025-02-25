@@ -196,7 +196,7 @@ const Underwriting = ({ program }) => {
             <TextInput
               label='Underwriter'
               id='underwriter'
-              name='underwriter'
+              name='Underwriter'
               value={formData.underwriter}
               onChange={handleChange}
               required
@@ -204,6 +204,7 @@ const Underwriting = ({ program }) => {
             <CurrencyInput
               label='Amount'
               name='Amount'
+              id='amount'
               value={formData.Amount}
               onChange={handleCurrencyChange}
               placeholder='Amount'
@@ -222,8 +223,8 @@ const Underwriting = ({ program }) => {
               value={formData.DurationSeconds}
               onChange={handleInputChange}
               placeholder='Duration'
+              id='duration'
             />
-            {console.log(episodeOptions)}
             { episodeOptions !== 'Single Program' &&
               <CheckboxInput
                 label='Episode(s)'

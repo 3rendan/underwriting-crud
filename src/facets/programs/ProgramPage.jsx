@@ -108,7 +108,8 @@ const ProgramPage = () => {
           <Tab eventKey='pricing' title='Pricing'>
             <Pricing program={program} />
           </Tab>
-          <Tab eventKey='underwriting' title='Underwriting'>
+          {console.log(program)}
+          <Tab eventKey='underwriting' title='Underwriting' data-testid='underwriterTab'>
             <Container className='program-details-container py-3'>
               <Underwriting
                 underwriters={underwriters}

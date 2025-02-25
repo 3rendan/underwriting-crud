@@ -1,8 +1,21 @@
 Cypress.Commands.add('login', () => {
-  // Replace with your actual login logic
-  cy.visit('/login');
-  cy.get('#username').type('Administrator');
-  cy.get('#password').type('OffDomino#2025');
-  cy.get('form').submit();
-  cy.url().should('include', '/dashboard'); // Adjust based on your app's behavior
+  // Make a POST request to the authentication endpoint
+  cy.request({
+    method: 'POST',
+    url: `${Cypress.env('REACT_APP_HOST_ENDPOINT')}/auth`, // Use Cypress.env to access environment variables
+    body: {
+      username: 'Administrator',
+      password: 'OffDomino#2025',
+    },
+  }).then((response) => {
+    // Check if the response contains a bearer token
+    const bearerToken = response.body?.bearer;
+    if (!bearerToken) {
+      throw new Error('No bearer token received');
+    }
+
+    // Store the token in localStorage or a Cypress environment variable
+    window.localStorage.setItem('token', bearerToken);
+    Cypress.env('bearerToken', bearerToken); // Optional: Store the token in Cypress.env for reuse
+  });
 });
